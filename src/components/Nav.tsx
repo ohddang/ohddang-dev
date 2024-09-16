@@ -17,14 +17,6 @@ const Nav = () => {
   }, [pathname, hash]);
 
   useEffect(() => {
-    const soccerIcon = document.querySelector("#soccer-icon");
-    if (soccerIcon) {
-      const paths = soccerIcon.querySelectorAll("path");
-      for (let i = 0; i < paths.length; i++) {
-        console.log(soccerIcon, i, paths[i].getTotalLength());
-      }
-    }
-
     const element = document.querySelector(".color-morph-border");
     let hue = 0;
 

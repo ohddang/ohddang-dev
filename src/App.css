@@ -89,35 +89,41 @@ body {
 
 @keyframes soccer-path {
   0% {
-    stroke-dashoffset: -3020;
+    stroke-dashoffset: -4723;
   }
   50% {
     stroke-dashoffset: 0;
   }
   100% {
-    stroke-dashoffset: 3020;
+    stroke-dashoffset: 4723;
   }
 }
 
 .soccer-path {
-  stroke-dasharray: 3020;
+  stroke-dasharray: 4723;
   animation: soccer-path 3s ease-out infinite;
 }
 
 @keyframes fire-path {
   0% {
-    stroke-dashoffset: -4500;
+    stroke-dashoffset: -2250;
+  }
+  20% {
+    stroke-dashoffset: -2250;
   }
   50% {
     stroke-dashoffset: 0;
   }
+  75% {
+    stroke-dashoffset: 0;
+  }
   100% {
-    stroke-dashoffset: 4500;
+    stroke-dashoffset: 2250;
   }
 }
 
 .fire-path {
-  stroke-dasharray: 4500;
+  stroke-dasharray: 2250;
   animation: fire-path 3s ease-out infinite;
 }
 
