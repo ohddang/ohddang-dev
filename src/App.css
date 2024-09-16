@@ -24,13 +24,133 @@ body {
   justify-content: center;
 }
 
-.content h1 {
-  font-size: 3.6rem;
-  font-weight: 700;
+@keyframes rotate-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-.content p {
-  font-size: 1.2rem;
-  font-weight: 400;
-  opacity: 0.5;
+.rotate-gradient {
+  background-size: 200% 200%;
+  animation: rotate-gradient 2s linear infinite;
+}
+
+@keyframes rotate-z {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+.rotate-z {
+  animation: rotate-z 2s linear infinite;
+}
+
+@keyframes color-morph {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.color-morph {
+  animation: color-morph 10s linear infinite;
+}
+
+.color-morph-border {
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  filter: hue-rotate(0deg);
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateX(-50%) translateY(-200%);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.slide-down {
+  animation: slide-down 0.5s ease-out;
+}
+
+@keyframes soccer-path {
+  0% {
+    stroke-dashoffset: -3020;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 3020;
+  }
+}
+
+.soccer-path {
+  stroke-dasharray: 3020;
+  animation: soccer-path 3s ease-out infinite;
+}
+
+@keyframes fire-path {
+  0% {
+    stroke-dashoffset: -4500;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 4500;
+  }
+}
+
+.fire-path {
+  stroke-dasharray: 4500;
+  animation: fire-path 3s ease-out infinite;
+}
+
+@keyframes projects-path {
+  0% {
+    stroke-dashoffset: -3889;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 3889;
+  }
+}
+
+.projects-path {
+  stroke-dasharray: 3889;
+  animation: projects-path 3s ease-out infinite;
+}
+
+@keyframes experience-path {
+  0% {
+    stroke-dashoffset: -2889;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 2889;
+  }
+}
+
+.experience-path {
+  stroke-dasharray: 2889;
+  animation: experience-path 3s ease-out infinite;
 }
