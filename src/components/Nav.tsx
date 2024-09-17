@@ -9,6 +9,22 @@ const Nav = () => {
   const { pathname, hash } = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
 
+  const handleMouseOver = (e: React.MouseEvent, className: string) => {
+    const target = e.target as HTMLElement;
+    if (target.parentElement?.firstChild) {
+      const svgComponent = target.parentElement.firstChild as SVGSVGElement;
+      svgComponent.classList.add(className);
+    }
+  };
+
+  const handleMouseOut = (e: React.MouseEvent, className: string) => {
+    const target = e.target as HTMLElement;
+    if (target.parentElement?.firstChild) {
+      const svgComponent = target.parentElement.firstChild as SVGSVGElement;
+      svgComponent.classList.remove(className);
+    }
+  };
+
   useEffect(() => {
     navRef.current?.classList.remove("slide-down");
     setTimeout(() => {
@@ -21,7 +37,7 @@ const Nav = () => {
     if (soccerIcon) {
       const paths = soccerIcon.querySelectorAll("path");
       for (let i = 0; i < paths.length; i++) {
-        console.log(soccerIcon, i, paths[i].getTotalLength());
+        // console.log(soccerIcon, i, paths[i].getTotalLength());
       }
     }
 
@@ -41,30 +57,38 @@ const Nav = () => {
   }, []);
 
   return (
-    <div className="bg-transparent w-8/12 h-20 position: fixed top-5 left-1/2 -translate-x-1/2 rounded-full border-4 border-transparent font-bold text-lg" ref={navRef}>
-      <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 rounded-full color-morph-border p-[2px]"></div>
+    <div className="bg-transparent w-8/12 h-20 position: fixed top-5 left-1/2 -translate-x-1/2 rounded-full border-transparent font-bold text-lg" ref={navRef}>
+      <div className=" absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 rounded-full color-morph-border p-[3px]"></div>
       <div className="relative w-full h-full flex flex-row justify-between items-center p-2">
         <div className="rotate-z">
           <div className="w-14 h-14 border-4 border-white rounded-full bg-gradient-to-r from-purple-500 to-yellow-500 text-center transition duration-300 cursor-pointer rotate-gradient">
             <Link to="/">ODD</Link>
           </div>
         </div>
-        <div className="flex flex-row justify-center items-center gap-6 -webkit-mask-none mask-none">
+        <div className="flex flex-row justify-center items-center gap-6">
           <div className="flex flex-row items-center gap-2">
-            <SoccerSVG id="soccer-icon" className="w-8 h-8 cursor-pointer soccer-path" />
-            <Link to="/playground">Playground</Link>
+            <SoccerSVG id="soccer-icon" className="w-8 h-8" />
+            <Link to="/playground" onMouseOver={(e) => handleMouseOver(e, "soccer-path")} onMouseOut={(e) => handleMouseOut(e, "soccer-path")}>
+              Playground
+            </Link>
           </div>
           <div className="flex flex-row items-center gap-2">
-            <PassionSVG id="passion-icon" className="w-8 h-8 cursor-pointer fire-path" />
-            <Link to="/#passion">Passion</Link>
+            <PassionSVG id="passion-icon" className="w-8 h-8" />
+            <Link to="/#passion" onMouseOver={(e) => handleMouseOver(e, "fire-path")} onMouseOut={(e) => handleMouseOut(e, "fire-path")}>
+              Passion
+            </Link>
           </div>
           <div className="flex flex-row items-center gap-2">
-            <ProjectsSVG id="projects-icon" className="w-8 h-8 cursor-pointer projects-path" />
-            <Link to="/#projects">Projects</Link>
+            <ProjectsSVG id="projects-icon" className="w-8 h-8" />
+            <Link to="/#projects" onMouseOver={(e) => handleMouseOver(e, "projects-path")} onMouseOut={(e) => handleMouseOut(e, "projects-path")}>
+              Projects
+            </Link>
           </div>
           <div className="flex flex-row items-center gap-2">
-            <ExperienceSVG id="experience-icon" className="w-8 h-8 cursor-pointer experience-path" />
-            <Link to="/#experience">Experience</Link>
+            <ExperienceSVG id="experience-icon" className="w-8 h-8" />
+            <Link to="/#experience" onMouseOver={(e) => handleMouseOver(e, "experience-path")} onMouseOut={(e) => handleMouseOut(e, "experience-path")}>
+              Experience
+            </Link>
           </div>
         </div>
         <div className="h-full bg-blue-500 border-r-4 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600">

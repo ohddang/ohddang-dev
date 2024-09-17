@@ -68,10 +68,11 @@ body {
 }
 
 .color-morph-border {
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff, #fff) content-box, linear-gradient(#fff, #fff);
   -webkit-mask-composite: destination-out;
+
+  mask: linear-gradient(#fff, #fff), linear-gradient(#fff, #fff) content-box;
   mask-composite: exclude;
-  filter: hue-rotate(0deg);
 }
 
 @keyframes slide-down {
