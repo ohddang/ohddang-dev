@@ -57,11 +57,11 @@ const Nav = () => {
   }, []);
 
   return (
-    <div className="bg-transparent w-8/12 h-20 position: fixed top-5 left-1/2 -translate-x-1/2 rounded-full border-transparent font-bold text-lg" ref={navRef}>
+    <div className="bg-mono-gray-900 w-8/12 h-16 position: fixed top-5 left-1/2 -translate-x-1/2 rounded-full border-transparent font-bold text-lg z-10" ref={navRef}>
       <div className=" absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 rounded-full color-morph-border p-[3px]"></div>
       <div className="relative w-full h-full flex flex-row justify-between items-center p-2">
         <div className="rotate-z">
-          <div className="w-14 h-14 border-4 border-white rounded-full bg-gradient-to-r from-purple-500 to-yellow-500 text-center transition duration-300 cursor-pointer rotate-gradient">
+          <div className="w-12 h-12 border-[3px] border-white rounded-full bg-gradient-to-r from-purple-500 to-yellow-500 text-base text-center transition duration-300 cursor-pointer rotate-gradient">
             <Link to="/">ODD</Link>
           </div>
         </div>

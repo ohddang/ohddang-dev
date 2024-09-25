@@ -68,7 +68,7 @@ body {
 }
 
 .color-morph-border {
-  -webkit-mask: linear-gradient(#fff, #fff) content-box, linear-gradient(#fff, #fff);
+  -webkit-mask: linear-gradient(#fff, #fff), linear-gradient(#fff, #fff) content-box;
   -webkit-mask-composite: destination-out;
 
   mask: linear-gradient(#fff, #fff), linear-gradient(#fff, #fff) content-box;

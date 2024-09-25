@@ -3,6 +3,21 @@ module.exports = {
   content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      colors: {
+        "mono-gray": {
+          DEFAULT: "#808080", // 기본 모노톤 색상
+          50: "#f7f7f7",
+          100: "#e1e1e1",
+          200: "#cfcfcf",
+          300: "#b1b1b1",
+          400: "#9e9e9e",
+          500: "#7e7e7e",
+          600: "#626262",
+          700: "#515151",
+          800: "#3b3b3b",
+          900: "#222222",
+        },
+      },
       fontFamily: {
         notoSans: ["Noto Sans KR", "sans-serif"],
       },
