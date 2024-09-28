@@ -1,6 +1,6 @@
 const Contact = () => {
   return (
-    <section id="contact" className="h-[calc(120vh)]  bg-black/90">
+    <section id="contact" className="h-[calc(120vh)]  bg-mono-gray-850">
       Contact
     </section>
   );

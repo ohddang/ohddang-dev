@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SoccerSVG from "../assets/soccer.svg?react";
 import PassionSVG from "../assets/fire.svg?react";
@@ -9,6 +9,9 @@ const Nav = () => {
   const { pathname, hash } = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
   const [isRoundedFull, setIsRoundedFull] = useState<boolean>(false);
+  const [resizable, setResizable] = useState<boolean>(false);
+  const [scaleUp, setScaleUp] = useState<boolean>(document.body.clientWidth > 1279);
+  const [hide, setHide] = useState<boolean>(false);
 
   const handleMouseOver = (e: React.MouseEvent, className: string) => {
     const target = e.target as HTMLElement;
@@ -25,6 +28,17 @@ const Nav = () => {
       svgComponent.classList.remove(className);
     }
   };
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    setScaleUp(!scaleUp);
+  };
+
+  // useEffect(() => {
+  //   if (resizable && !scaleUp) setHide(true);
+  //   else setHide(false);
+
+  //   console.log("resizable", resizable, "scaleUp", scaleUp);
+  // }, [resizable, scaleUp]);
 
   useEffect(() => {
     navRef.current?.classList.remove("slide-down");
@@ -75,11 +89,27 @@ const Nav = () => {
     };
   }, []);
 
+  useLayoutEffect(() => {
+    window.addEventListener("resize", () => {
+      if (document.body.clientWidth >= 1279) {
+        setScaleUp(false);
+      }
+
+      setResizable(document.body.clientWidth <= 1279);
+    });
+    setResizable(document.body.clientWidth <= 1279);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (resizable && !scaleUp) setHide(true);
+    else setHide(false);
+  }, [resizable, scaleUp]);
+
   return (
     <div
-      className={`bg-mono-gray-900 w-8/12 min-w-[234px] xl:h-16 min-h-16 position: fixed top-5 left-1/2 -translate-x-1/2 ${
+      className={`bg-mono-gray-900 w-fit xl:w-8/12 xl:h-16 min-h-16 position: fixed top-5 left-1/2 -translate-x-1/2 ${
         isRoundedFull ? "rounded-full" : "rounded-[32px]"
-      } border-transparent font-bold text-lg z-10`}
+      } border-transparent font-bold text-lg z-10 transition-transform duration-500`}
       ref={navRef}>
       <div
         className={`absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 ${
@@ -88,10 +118,10 @@ const Nav = () => {
       <div className="relative w-full h-full flex flex-row justify-between items-start xl:items-center gap-1 p-2 overflow-hidden">
         <div className="rotate-z">
           <div className="w-12 h-12 border-[3px] border-white rounded-full bg-gradient-to-r from-purple-500 to-yellow-500 text-base text-center transition duration-300 cursor-pointer rotate-gradient">
-            <Link to="/">ODD</Link>
+            <div onPointerDown={handlePointerDown}>ODD</div>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap justify-center items-center gap-6 mt-2 xl:mt-0">
+        <div className={`${hide ? "hidden" : "flex"} flex-row flex-wrap justify-center items-center gap-4 xl:gap-6 m-2 xl:mt-0 xl:mb-0`}>
           <div className="flex flex-row items-center gap-2">
             <SoccerSVG id="soccer-icon" className="w-8 h-8" />
             <Link to="/playground" onMouseOver={(e) => handleMouseOver(e, "soccer-path")} onMouseOut={(e) => handleMouseOut(e, "soccer-path")}>
@@ -117,7 +147,7 @@ const Nav = () => {
             </Link>
           </div>
         </div>
-        <div className="hidden sm:flex h-12 bg-blue-500 border-r-4 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600">
+        <div className={`hidden ${hide ? "" : "sm:flex h-12"} bg-blue-500 border-r-4 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600`}>
           <Link to="/#contact">Contact</Link>
         </div>
       </div>
