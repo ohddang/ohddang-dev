@@ -10,7 +10,7 @@ const Nav = () => {
   const navRef = useRef<HTMLDivElement>(null);
   const [isRoundedFull, setIsRoundedFull] = useState<boolean>(false);
   const [resizable, setResizable] = useState<boolean>(false);
-  const [scaleUp, setScaleUp] = useState<boolean>(document.body.clientWidth > 1279);
+  const [scaleUp, setScaleUp] = useState<boolean>(window.innerWidth > 1279);
   const [hide, setHide] = useState<boolean>(false);
 
   const handleMouseOver = (e: React.MouseEvent, className: string) => {
@@ -91,13 +91,13 @@ const Nav = () => {
 
   useLayoutEffect(() => {
     window.addEventListener("resize", () => {
-      if (document.body.clientWidth >= 1279) {
+      if (window.innerWidth >= 1279) {
         setScaleUp(false);
       }
 
-      setResizable(document.body.clientWidth <= 1279);
+      setResizable(window.innerWidth <= 1279);
     });
-    setResizable(document.body.clientWidth <= 1279);
+    setResizable(window.innerWidth <= 1279);
   }, []);
 
   useLayoutEffect(() => {
