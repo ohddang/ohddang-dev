@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SoccerSVG from "../assets/soccer.svg?react";
 import PassionSVG from "../assets/fire.svg?react";
@@ -8,6 +8,7 @@ import ExperienceSVG from "../assets/experience.svg?react";
 const Nav = () => {
   const { pathname, hash } = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
+  const [isRoundedFull, setIsRoundedFull] = useState<boolean>(false);
 
   const handleMouseOver = (e: React.MouseEvent, className: string) => {
     const target = e.target as HTMLElement;
@@ -56,16 +57,41 @@ const Nav = () => {
     changeColor();
   }, []);
 
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const height = entry.contentRect.height;
+        setIsRoundedFull(height <= 64); // 예시로 높이가 64px 이상일 때 rounded-full 적용
+      }
+    });
+    if (navRef.current) {
+      resizeObserver.observe(navRef.current);
+    }
+
+    return () => {
+      if (navRef.current) {
+        resizeObserver.unobserve(navRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="bg-mono-gray-900 w-8/12 h-16 position: fixed top-5 left-1/2 -translate-x-1/2 rounded-full border-transparent font-bold text-lg z-10" ref={navRef}>
-      <div className=" absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 rounded-full color-morph-border p-[3px]"></div>
-      <div className="relative w-full h-full flex flex-row justify-between items-center p-2">
+    <div
+      className={`bg-mono-gray-900 w-8/12 min-w-[234px] xl:h-16 min-h-16 position: fixed top-5 left-1/2 -translate-x-1/2 ${
+        isRoundedFull ? "rounded-full" : "rounded-[32px]"
+      } border-transparent font-bold text-lg z-10`}
+      ref={navRef}>
+      <div
+        className={`absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 ${
+          isRoundedFull ? "rounded-full" : "rounded-[32px]"
+        } color-morph-border p-[3px]`}></div>
+      <div className="relative w-full h-full flex flex-row justify-between items-start xl:items-center gap-1 p-2 overflow-hidden">
         <div className="rotate-z">
           <div className="w-12 h-12 border-[3px] border-white rounded-full bg-gradient-to-r from-purple-500 to-yellow-500 text-base text-center transition duration-300 cursor-pointer rotate-gradient">
             <Link to="/">ODD</Link>
           </div>
         </div>
-        <div className="flex flex-row justify-center items-center gap-6">
+        <div className="flex flex-row flex-wrap justify-center items-center gap-6 mt-2 xl:mt-0">
           <div className="flex flex-row items-center gap-2">
             <SoccerSVG id="soccer-icon" className="w-8 h-8" />
             <Link to="/playground" onMouseOver={(e) => handleMouseOver(e, "soccer-path")} onMouseOut={(e) => handleMouseOut(e, "soccer-path")}>
@@ -91,7 +117,7 @@ const Nav = () => {
             </Link>
           </div>
         </div>
-        <div className="h-full bg-blue-500 border-r-4 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600">
+        <div className="hidden sm:flex h-12 bg-blue-500 border-r-4 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600">
           <Link to="/#contact">Contact</Link>
         </div>
       </div>

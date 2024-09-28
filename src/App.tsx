@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <div className="w-full bg-gray-500/10 position: relative font-notoSans">
+    <div className="w-full min-w-[375px] bg-gray-500/10 position: relative font-notoSans">
       <Router>
         <Nav />
         <Routes>
