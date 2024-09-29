@@ -161,3 +161,15 @@ body {
   stroke-dasharray: 2889;
   animation: experience-path 3s ease-out infinite;
 }
+
+/* styles.css */
+
+/* styles.css */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

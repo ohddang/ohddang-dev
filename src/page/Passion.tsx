@@ -34,7 +34,7 @@ const Passion = () => {
     setDisapper(true);
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const initialPositions: { x2: number; y2: number; speed: number }[] = [];
     const svg = svgRef.current;
     if (!svg) return;
@@ -179,7 +179,7 @@ const Passion = () => {
     };
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
         let size = Math.min(entry.contentRect.width, entry.contentRect.height);

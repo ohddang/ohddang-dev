@@ -17,6 +17,7 @@ module.exports = {
           800: "#3b3b3b",
           850: "#2f2f2f",
           900: "#222222",
+          950: "#1a1a1a",
         },
       },
       fontFamily: {
@@ -40,5 +41,16 @@ module.exports = {
   plugins: [
     require("@tailwindcss/aspect-ratio"),
     // ... other plugins
+    function ({ addUtilities }) {
+      addUtilities({
+        ".scrollbar-hide": {
+          "-ms-overflow-style": "none" /* IE and Edge */,
+          "scrollbar-width": "none" /* Firefox */,
+          "&::-webkit-scrollbar": {
+            display: "none" /* Chrome, Safari, Opera */,
+          },
+        },
+      });
+    },
   ],
 };

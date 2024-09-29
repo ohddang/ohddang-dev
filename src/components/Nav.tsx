@@ -45,6 +45,10 @@ const Nav = () => {
     setTimeout(() => {
       navRef.current?.classList.add("slide-down");
     }, 50);
+
+    if (pathname === "/" || hash === "") {
+      window.scrollTo(0, 0);
+    }
   }, [pathname, hash]);
 
   useEffect(() => {
@@ -124,30 +128,46 @@ const Nav = () => {
         <div className={`${hide ? "hidden" : "flex"} flex-row flex-wrap justify-center items-center gap-4 xl:gap-6 m-2 xl:mt-0 xl:mb-0`}>
           <div className="flex flex-row items-center gap-2">
             <SoccerSVG id="soccer-icon" className="w-8 h-8" />
-            <Link to="/playground" onMouseOver={(e) => handleMouseOver(e, "soccer-path")} onMouseOut={(e) => handleMouseOut(e, "soccer-path")}>
+            <Link
+              className="underline-offset-8 hover:underline"
+              to="/playground"
+              onMouseOver={(e) => handleMouseOver(e, "soccer-path")}
+              onMouseOut={(e) => handleMouseOut(e, "soccer-path")}>
               Playground
             </Link>
           </div>
           <div className="flex flex-row items-center gap-2">
             <PassionSVG id="passion-icon" className="w-8 h-8" />
-            <Link to="/#passion" onMouseOver={(e) => handleMouseOver(e, "fire-path")} onMouseOut={(e) => handleMouseOut(e, "fire-path")}>
+            <Link
+              className="underline-offset-8 hover:underline"
+              to="/#passion"
+              onMouseOver={(e) => handleMouseOver(e, "fire-path")}
+              onMouseOut={(e) => handleMouseOut(e, "fire-path")}>
               Passion
             </Link>
           </div>
           <div className="flex flex-row items-center gap-2">
             <ProjectsSVG id="projects-icon" className="w-8 h-8" />
-            <Link to="/#projects" onMouseOver={(e) => handleMouseOver(e, "projects-path")} onMouseOut={(e) => handleMouseOut(e, "projects-path")}>
+            <Link
+              className="underline-offset-8 hover:underline"
+              to="/#projects"
+              onMouseOver={(e) => handleMouseOver(e, "projects-path")}
+              onMouseOut={(e) => handleMouseOut(e, "projects-path")}>
               Projects
             </Link>
           </div>
           <div className="flex flex-row items-center gap-2">
             <ExperienceSVG id="experience-icon" className="w-8 h-8" />
-            <Link to="/#experience" onMouseOver={(e) => handleMouseOver(e, "experience-path")} onMouseOut={(e) => handleMouseOut(e, "experience-path")}>
+            <Link
+              className="underline-offset-8 hover:underline"
+              to="/#experience"
+              onMouseOver={(e) => handleMouseOver(e, "experience-path")}
+              onMouseOut={(e) => handleMouseOut(e, "experience-path")}>
               Experience
             </Link>
           </div>
         </div>
-        <div className={`hidden ${hide ? "" : "sm:flex h-12"} bg-blue-500 border-r-4 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600`}>
+        <div className={`hidden ${hide ? "" : "xl:flex h-12"} bg-blue-500 border-r-4 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600`}>
           <Link to="/#contact">Contact</Link>
         </div>
       </div>
