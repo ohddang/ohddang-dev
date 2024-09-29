@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import LinkSVG from "../assets/link.svg?react";
 import ArrowLeft from "../assets/arrow-left.svg?react";
 import ArrowRight from "../assets/arrow-right.svg?react";
+import Card from "../components/Card";
 
 const Projects = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -160,10 +161,15 @@ const Projects = () => {
     scrollX.current = itemRef.current!.clientWidth;
   }, []);
 
+  // 스크롤에 따른 프로젝트 타임라인 애니메이션
+  //
+  // 기술스택 나열
   return (
     <section id="projects" className="h-screen bg-mono-gray-950 aspect-w-16 aspect-h-9">
-      <div className="w-full h-full flex flex-col justify-center items-center">
-        <div className="text-4xl">Skill Set</div>
+      <div className="w-full h-full flex flex-col justify-center items-center gap-10">
+        <div>
+          <Card url="images/logo/docker.png" />
+        </div>
         <div className="w-[300px] sm:w-[600px] lg:w-[900px] 2xl:w-[1200px] h-auto flex flex-row justify-start items-center overflow-scroll scrollbar-hide" ref={carouselRef}>
           <div className={`w-[1200px] 2xl:w-full h-fit  flex flex-row justify-start items-center transition-all duration-500`} ref={itemWrapRef}>
             {projects.map((project, index) => (
@@ -174,7 +180,8 @@ const Projects = () => {
                     className="pointer-events-auto w-full h-full  transition-all duration-500 grayscale hover:grayscale-0 hover:scale-105"
                     onDragStart={(e) => {
                       e.preventDefault();
-                    }}></img>
+                    }}
+                  ></img>
                 </div>
                 <a href={project.url} target="_blank" rel="noopener noreferrer" className="pointer-events-auto text-blue-500 underline mt-2">
                   <LinkSVG className="w-8 h-8 inline-block" />

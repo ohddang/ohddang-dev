@@ -6,6 +6,16 @@ const Passion = () => {
   const svgRef = useRef<SVGSVGElement>(null);
   const [disapper, setDisapper] = useState<boolean>(false);
 
+  const LineCircleText = ({ x1, y1, x2, y2, r, text, fontSize }: { x1: string; y1: string; x2: string; y2: string; r: string; text: string; fontSize: string }) => (
+    <>
+      <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
+      <circle cx={x2} cy={y2} r={r} fill="#222" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
+      <text x={x2} y={y2} fill="rgb(202, 138, 4)" fontSize={fontSize} textAnchor="middle" dominantBaseline="middle" filter="url(#shadow)">
+        {text}
+      </text>
+    </>
+  );
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const element = profileRef?.current;
     if (!element) return;
@@ -224,53 +234,14 @@ const Passion = () => {
             <rect id="rect1" width="50%" height="50%" x="25%" y="25%" fill="url(#grad1)" filter="url(#shadow)" />
             <rect id="rect2" width="50%" height="50%" x="25%" y="25%" fill="url(#grad2)" filter="url(#shadow)" />
 
-            <line x1="500" y1="500" x2="500" y2="250" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <circle cx="500" cy="250" r="30" fill="#222" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" style={{ cursor: "pointer" }} filter="url(#shadow)" />
-            <text x="500" y="250" fill="rgb(202, 138, 4)" fontSize="16" textAnchor="middle" dominantBaseline="middle" filter="url(#shadow)">
-              AI
-            </text>
-
-            <line x1="500" y1="500" x2="200" y2="650" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <circle cx="200" cy="650" r="40" fill="#222" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <text x="200" y="650" fill="rgb(202, 138, 4)" fontSize="16" textAnchor="middle" dominantBaseline="middle" filter="url(#shadow)">
-              3D
-            </text>
-
-            <line x1="500" y1="500" x2="100" y2="500" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <circle cx="100" cy="500" r="40" fill="#222" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <text x="100" y="500" fill="rgb(202, 138, 4)" fontSize="16" textAnchor="middle" dominantBaseline="middle" filter="url(#shadow)">
-              AWS
-            </text>
-
-            <line x1="500" y1="500" x2="300" y2="300" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <circle cx="300" cy="300" r="70" fill="#222" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <text x="300" y="300" fill="rgb(202, 138, 4)" fontSize="16" textAnchor="middle" dominantBaseline="middle" filter="url(#shadow)">
-              FrontEnd
-            </text>
-
-            <line x1="500" y1="500" x2="800" y2="250" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <circle cx="800" cy="250" r="70" fill="#222" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <text x="800" y="250" fill="rgb(202, 138, 4)" fontSize="16" textAnchor="middle" dominantBaseline="middle" filter="url(#shadow)">
-              Javascript
-            </text>
-
-            <line x1="500" y1="500" x2="850" y2="700" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <circle cx="850" cy="700" r="60" fill="#222" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <text x="850" y="700" fill="rgb(202, 138, 4)" fontSize="16" textAnchor="middle" dominantBaseline="middle" filter="url(#shadow)">
-              Canvas
-            </text>
-
-            <line x1="500" y1="500" x2="850" y2="500" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <circle cx="850" cy="500" r="35" fill="#222" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <text x="850" y="500" fill="rgb(202, 138, 4)" fontSize="16" textAnchor="middle" dominantBaseline="middle" filter="url(#shadow)">
-              Golang
-            </text>
-
-            <line x1="500" y1="500" x2="550" y2="750" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <circle cx="550" cy="750" r="40" fill="#222" stroke="rgba(202, 138, 4, 1)" strokeWidth="3" filter="url(#shadow)" />
-            <text x="550" y="750" fill="rgb(202, 138, 4)" fontSize="16" textAnchor="middle" dominantBaseline="middle" filter="url(#shadow)">
-              Stock
-            </text>
+            <LineCircleText x1="500" y1="500" x2="500" y2="250" r="30" text="AI" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="200" y2="650" r="40" text="3D" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="100" y2="500" r="40" text="AWS" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="300" y2="300" r="70" text="FrontEnd" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="800" y2="250" r="70" text="Javascript" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="850" y2="700" r="60" text="Canvas" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="850" y2="500" r="35" text="Golang" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="550" y2="750" r="40" text="Stock" fontSize="16" />
           </g>
         </svg>
         <div className="relative w-full h-full flex flex-row gap-5 justify-center items-center" ref={profileWrapperRef}>
