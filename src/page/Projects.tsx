@@ -163,13 +163,14 @@ const Projects = () => {
 
   // 스크롤에 따른 프로젝트 타임라인 애니메이션
   //
-  // 기술스택 나열
+  // 기술스택 나열 + Pixi, Rspack
   return (
     <section id="projects" className="h-screen bg-mono-gray-950 aspect-w-16 aspect-h-9">
-      <div className="w-full h-full flex flex-col justify-center items-center gap-10">
-        <div>
-          <Card url="images/logo/docker.png" />
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="w-[300px] sm:w-[600px] lg:w-[900px] 2xl:w-[1200px] text-5xl font-notoSans font-bold mb-10">
+          <p>Since 2024</p>
         </div>
+
         <div className="w-[300px] sm:w-[600px] lg:w-[900px] 2xl:w-[1200px] h-auto flex flex-row justify-start items-center overflow-scroll scrollbar-hide" ref={carouselRef}>
           <div className={`w-[1200px] 2xl:w-full h-fit  flex flex-row justify-start items-center transition-all duration-500`} ref={itemWrapRef}>
             {projects.map((project, index) => (
@@ -190,13 +191,31 @@ const Projects = () => {
             ))}
           </div>
         </div>
-        <div className="button-group flex flex-row gap-5">
+        <div className="button-group flex flex-row gap-5 mb-36">
           <button className="prev-button">
             <ArrowLeft className="w-8 h-8 transition-transform hover:scale-125" />
           </button>
           <button className="next-button">
             <ArrowRight className="w-8 h-8 transition-transform hover:scale-125" />
           </button>
+        </div>
+
+        <div className="w-[300px] sm:w-[600px] lg:w-[900px] 2xl:w-[1200px] text-5xl font-notoSans font-bold border border-white p-5">
+          <p className="mb-10">Skill</p>
+          <div className="flex flex-row justify-start flex-wrap gap-5">
+            <Card url="images/logo/javascript.png" />
+            <Card url="images/logo/typescript.png" />
+            <Card url="images/logo/react.png" />
+            <Card url="images/logo/nextjs.png" />
+            <Card url="images/logo/css.png" />
+            <Card url="images/logo/styledComponents.png" />
+            <Card url="images/logo/tailwind.png" />
+            <Card url="images/logo/nodejs.svg" />
+            <Card url="images/logo/aws.svg" />
+            <Card url="images/logo/mysql.png" />
+            <Card url="images/logo/prisma.svg" />
+            <Card url="images/logo/docker.png" />
+          </div>
         </div>
       </div>
     </section>

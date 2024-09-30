@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import Contact from "./Contact";
-import Experience from "./Experience";
+
 import Passion from "./Passion";
 import Projects from "./Projects";
 import { useEffect } from "react";
@@ -21,7 +21,7 @@ const Home = () => {
     <div>
       <Passion />
       <Projects />
-      <Experience />
+
       <Contact />
     </div>
   );

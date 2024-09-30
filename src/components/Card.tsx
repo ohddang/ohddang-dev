@@ -8,6 +8,7 @@ export default function Card(props: CardProps) {
   const cardRef = useRef<HTMLImageElement>(null);
   const [cardScale, setCardScale] = useState<string>("scale-0");
   const [bgColor, setBgColor] = useState<string>("");
+  const [darkColor, setDarkColor] = useState<string>("");
 
   const onMouseOver = (e: React.MouseEvent<HTMLDivElement>) => {
     const element = cardRef?.current;
@@ -30,7 +31,7 @@ export default function Card(props: CardProps) {
     const rotateX = angleY * -15;
 
     element.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    element.style.boxShadow = `${angleX * -5}px ${angleY * -5}px 1px 1px #3a6aa8`;
+    element.style.boxShadow = `${angleX * -5}px ${angleY * -5}px 1px 1px ${darkColor}`;
     // element.style.boxShadow.replace("rgb", "rgba").replace(")", ", 0.1)");
   };
 
@@ -81,6 +82,7 @@ export default function Card(props: CardProps) {
       b = Math.floor(b / (data.length / 4));
       a = Math.floor(a / (data.length / 4));
       setBgColor(`rgb(${r},${g},${b})`);
+      setDarkColor(`rgb(${r * 0.7},${g * 0.7},${b * 0.7})`);
     };
     img.src = props.url;
   }, []);

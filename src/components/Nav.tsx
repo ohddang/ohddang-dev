@@ -114,11 +114,11 @@ const Nav = () => {
       className={`bg-mono-gray-900 w-fit xl:w-8/12 xl:h-16 min-h-16 position: fixed top-5 left-1/2 -translate-x-1/2 ${
         isRoundedFull ? "rounded-full" : "rounded-[32px]"
       } border-transparent font-bold text-lg z-10 transition-transform duration-500`}
-      ref={navRef}>
+      ref={navRef}
+    >
       <div
-        className={`absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 ${
-          isRoundedFull ? "rounded-full" : "rounded-[32px]"
-        } color-morph-border p-[3px]`}></div>
+        className={`absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 ${isRoundedFull ? "rounded-full" : "rounded-[32px]"} color-morph-border p-[3px]`}
+      ></div>
       <div className="relative w-full h-full flex flex-row justify-between items-start xl:items-center gap-1 p-2 overflow-hidden">
         <div className="rotate-z">
           <div className="w-12 h-12 border-[3px] border-white rounded-full bg-gradient-to-r from-purple-500 to-yellow-500 text-base text-center transition duration-300 cursor-pointer rotate-gradient">
@@ -132,7 +132,8 @@ const Nav = () => {
               className="underline-offset-8 hover:underline"
               to="/playground"
               onMouseOver={(e) => handleMouseOver(e, "soccer-path")}
-              onMouseOut={(e) => handleMouseOut(e, "soccer-path")}>
+              onMouseOut={(e) => handleMouseOut(e, "soccer-path")}
+            >
               Playground
             </Link>
           </div>
@@ -142,7 +143,8 @@ const Nav = () => {
               className="underline-offset-8 hover:underline"
               to="/#passion"
               onMouseOver={(e) => handleMouseOver(e, "fire-path")}
-              onMouseOut={(e) => handleMouseOut(e, "fire-path")}>
+              onMouseOut={(e) => handleMouseOut(e, "fire-path")}
+            >
               Passion
             </Link>
           </div>
@@ -152,18 +154,9 @@ const Nav = () => {
               className="underline-offset-8 hover:underline"
               to="/#projects"
               onMouseOver={(e) => handleMouseOver(e, "projects-path")}
-              onMouseOut={(e) => handleMouseOut(e, "projects-path")}>
+              onMouseOut={(e) => handleMouseOut(e, "projects-path")}
+            >
               Projects
-            </Link>
-          </div>
-          <div className="flex flex-row items-center gap-2">
-            <ExperienceSVG id="experience-icon" className="w-8 h-8" />
-            <Link
-              className="underline-offset-8 hover:underline"
-              to="/#experience"
-              onMouseOver={(e) => handleMouseOver(e, "experience-path")}
-              onMouseOut={(e) => handleMouseOut(e, "experience-path")}>
-              Experience
             </Link>
           </div>
         </div>
