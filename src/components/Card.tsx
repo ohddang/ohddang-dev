@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface CardProps {
   url: string;
 }
 
-export default function Card(props: CardProps) {
+export const Card = (props: CardProps) => {
   const cardRef = useRef<HTMLImageElement>(null);
   const [cardScale, setCardScale] = useState<string>("scale-0");
   const [bgColor, setBgColor] = useState<string>("");
@@ -31,7 +31,7 @@ export default function Card(props: CardProps) {
     const rotateX = angleY * -15;
 
     element.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    element.style.boxShadow = `${angleX * -5}px ${angleY * -5}px 1px 1px ${darkColor}`;
+    element.style.boxShadow = `${angleX * -3}px ${angleY * -3}px 1px 1px ${darkColor}`;
     // element.style.boxShadow.replace("rgb", "rgba").replace(")", ", 0.1)");
   };
 
@@ -98,12 +98,27 @@ export default function Card(props: CardProps) {
       <div
         ref={cardRef}
         style={{ backgroundColor: `${bgColor}` }}
-        className={`w-20 h-20 rounded-lg shadow-md flex justify-center items-center transition-all duration-300 ${cardScale}`}
+        className={`w-7 h-7 sm:w-10 sm:h-10 md:w-12 md:h-12 xl:w-14 xl:h-14 rounded-md xl:rounded-lg shadow-md flex justify-center items-center ${cardScale}`}
         onMouseMove={onMouseOver}
-        onMouseOut={onMouseOut}
-      >
-        <img className="rounded w-16 h-16" src={props.url} />
+        onMouseOut={onMouseOut}>
+        <img className="rounded w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 xl:w-11 xl:h-11" src={props.url} />
       </div>
     </div>
   );
+};
+
+interface CardGroupProps {
+  title: string;
+  children: React.ReactNode;
 }
+
+export const CardGroup = (props: CardGroupProps) => {
+  return (
+    <div className="relative flex flex-col justify-start flex-wrap gap-1 sm:gap-2 bg-gradient-to-tr from-mono-gray-950 to-mono-gray-850 rounded-md border border-gray-600 p-1 sm:p-2">
+      <div className="w-full bg-mono-gray-950 text-xs sm:text-sm xl:text-xl font-notoSans font-bold text-center rounded-md border border-gray-500 p-2">
+        <p>{props.title}</p>
+      </div>
+      <div className="flex flex-row justify-start flex-wrap gap-1 sm:gap-3 xl:gap-5 p-1 sm:p-2 mt-1">{props.children}</div>
+    </div>
+  );
+};

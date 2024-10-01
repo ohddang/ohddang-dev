@@ -33,13 +33,6 @@ const Nav = () => {
     setScaleUp(!scaleUp);
   };
 
-  // useEffect(() => {
-  //   if (resizable && !scaleUp) setHide(true);
-  //   else setHide(false);
-
-  //   console.log("resizable", resizable, "scaleUp", scaleUp);
-  // }, [resizable, scaleUp]);
-
   useEffect(() => {
     navRef.current?.classList.remove("slide-down");
     setTimeout(() => {
@@ -113,49 +106,46 @@ const Nav = () => {
     <div
       className={`bg-mono-gray-900 w-fit xl:w-8/12 xl:h-16 min-h-16 position: fixed top-5 left-1/2 -translate-x-1/2 ${
         isRoundedFull ? "rounded-full" : "rounded-[32px]"
-      } border-transparent font-bold text-lg z-10 transition-transform duration-500`}
-      ref={navRef}
-    >
+      } border-transparent font-bold text-xs sm:text-sm md:text-base xl:text-lg z-10 transition-transform duration-500`}
+      ref={navRef}>
       <div
-        className={`absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 ${isRoundedFull ? "rounded-full" : "rounded-[32px]"} color-morph-border p-[3px]`}
-      ></div>
+        className={`absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 ${
+          isRoundedFull ? "rounded-full" : "rounded-[32px]"
+        } color-morph-border p-[3px]`}></div>
       <div className="relative w-full h-full flex flex-row justify-between items-start xl:items-center gap-1 p-2 overflow-hidden">
         <div className="rotate-z">
           <div className="w-12 h-12 border-[3px] border-white rounded-full bg-gradient-to-r from-purple-500 to-yellow-500 text-base text-center transition duration-300 cursor-pointer rotate-gradient">
             <div onPointerDown={handlePointerDown}>ODD</div>
           </div>
         </div>
-        <div className={`${hide ? "hidden" : "flex"} flex-row flex-wrap justify-center items-center gap-4 xl:gap-6 m-2 xl:mt-0 xl:mb-0`}>
+        <div className={`${hide ? "hidden" : "flex"} flex-row flex-wrap justify-end items-center gap-2 sm:gap-3 md:gap-4 xl:gap-6 m-2 xl:mt-0 xl:mb-0`}>
           <div className="flex flex-row items-center gap-2">
-            <SoccerSVG id="soccer-icon" className="w-8 h-8" />
+            <SoccerSVG id="soccer-icon" className="w-6 h-6 md:w-8 md:h-8" />
             <Link
               className="underline-offset-8 hover:underline"
               to="/playground"
               onMouseOver={(e) => handleMouseOver(e, "soccer-path")}
-              onMouseOut={(e) => handleMouseOut(e, "soccer-path")}
-            >
+              onMouseOut={(e) => handleMouseOut(e, "soccer-path")}>
               Playground
             </Link>
           </div>
           <div className="flex flex-row items-center gap-2">
-            <PassionSVG id="passion-icon" className="w-8 h-8" />
+            <PassionSVG id="passion-icon" className="w-6 h-6 md:w-8 md:h-8" />
             <Link
               className="underline-offset-8 hover:underline"
               to="/#passion"
               onMouseOver={(e) => handleMouseOver(e, "fire-path")}
-              onMouseOut={(e) => handleMouseOut(e, "fire-path")}
-            >
+              onMouseOut={(e) => handleMouseOut(e, "fire-path")}>
               Passion
             </Link>
           </div>
           <div className="flex flex-row items-center gap-2">
-            <ProjectsSVG id="projects-icon" className="w-8 h-8" />
+            <ProjectsSVG id="projects-icon" className="w-6 h-6 md:w-8 md:h-8" />
             <Link
               className="underline-offset-8 hover:underline"
               to="/#projects"
               onMouseOver={(e) => handleMouseOver(e, "projects-path")}
-              onMouseOut={(e) => handleMouseOut(e, "projects-path")}
-            >
+              onMouseOut={(e) => handleMouseOut(e, "projects-path")}>
               Projects
             </Link>
           </div>
