@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         "mono-gray": {
-          DEFAULT: "#808080", // 기본 모노톤 색상
+          DEFAULT: "#808080", // 기본 모노톤 색상d
           50: "#f7f7f7",
           100: "#e1e1e1",
           200: "#cfcfcf",
@@ -35,6 +35,8 @@ module.exports = {
         "projects-path": "projects-path",
         "experience-path": "experience-path",
         "fire-path": "fire-path",
+        // "slide-in-left": "slideInLeft 0.5s ease-out",
+        // "slide-in-right": "slideInRight 0.5s ease-out",
       },
     },
   },

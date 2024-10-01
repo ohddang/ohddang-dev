@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 
 interface CardProps {
   url: string;
@@ -6,7 +6,6 @@ interface CardProps {
 
 export const Card = (props: CardProps) => {
   const cardRef = useRef<HTMLImageElement>(null);
-  const [cardScale, setCardScale] = useState<string>("scale-0");
   const [bgColor, setBgColor] = useState<string>("");
   const [darkColor, setDarkColor] = useState<string>("");
 
@@ -32,16 +31,15 @@ export const Card = (props: CardProps) => {
 
     element.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     element.style.boxShadow = `${angleX * -3}px ${angleY * -3}px 1px 1px ${darkColor}`;
-    // element.style.boxShadow.replace("rgb", "rgba").replace(")", ", 0.1)");
   };
 
-  function onMouseOut() {
+  const onMouseOut = () => {
     const element = cardRef?.current;
     if (!element) return;
 
     element.style.transform = `rotateX(0deg) rotateY(0deg)`;
     element.style.boxShadow = `1px 1px 1px 1px rgba(0, 0, 0, 0.1)`;
-  }
+  };
 
   useEffect(() => {
     const img = new Image();
@@ -87,21 +85,15 @@ export const Card = (props: CardProps) => {
     img.src = props.url;
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setCardScale("scale-100");
-    }, 1000);
-  }, [cardScale]);
-
   return (
     <div className="flex flex-col justify-center items-center">
       <div
         ref={cardRef}
         style={{ backgroundColor: `${bgColor}` }}
-        className={`w-7 h-7 sm:w-10 sm:h-10 md:w-12 md:h-12 xl:w-14 xl:h-14 rounded-md xl:rounded-lg shadow-md flex justify-center items-center ${cardScale}`}
+        className={`relative w-7 h-7 sm:w-10 sm:h-10 md:w-12 md:h-12 xl:w-14 xl:h-14 bg-white rounded-md xl:rounded-lg shadow-md flex justify-center items-center `}
         onMouseMove={onMouseOver}
         onMouseOut={onMouseOut}>
-        <img className="rounded w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 xl:w-11 xl:h-11" src={props.url} />
+        <img className={` absolute  rounded w-5 h-5 sm:w-8 sm:h-8 md:w-10 md:h-10 xl:w-11 xl:h-11`} src={props.url} />
       </div>
     </div>
   );

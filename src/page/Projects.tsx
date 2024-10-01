@@ -19,6 +19,34 @@ const Projects = () => {
   const prevButtonRef = useRef<HTMLButtonElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
 
+  const skillRef = useRef<HTMLDivElement>(null);
+  const slideRef = useRef<HTMLDivElement>(null);
+
+  // scroll 위치에따라 skillRef와 slideRef가 각각 왼쪽과 오른쪽에서 나타나고 사라지는 효과를 주기 위한 코드
+  useEffect(() => {
+    const handleScroll = () => {
+      if (skillRef.current && slideRef.current) {
+        if (window.scrollY >= skillRef.current.offsetTop) {
+          slideRef.current.classList.add("slide-in-left");
+        } else {
+          slideRef.current.classList.remove("slide-in-left");
+        }
+      }
+
+      if (window.scrollY >= skillRef.current!.offsetTop + 100) {
+        skillRef.current!.classList.add("slide-in-right");
+      } else {
+        skillRef.current!.classList.remove("slide-in-right");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const projects = [
     { image: "tetris.png", url: "https://ohddang.github.io/react-tetris/tetris" },
     { image: "whiteboard.png", url: "https://ohddang.github.io/whiteboard" },
@@ -184,9 +212,12 @@ const Projects = () => {
   const frontendList = ["javascript.png", "typescript.png", "react.png", "nextjs.png", "tailwind.png", "pixijs.svg", "rspack.svg"];
 
   return (
-    <section id="projects" className="h-screen bg-mono-gray-950 aspect-w-16 aspect-h-9">
-      <div className="w-full h-full flex flex-col justify-center items-center gap-0 xl:gap-10">
-        <div className="w-full text-5xl font-notoSans font-bold  p-5">
+    <section id="projects" className="relative min-h-[800px] h-screen bg-mono-gray-950 aspect-w-16 aspect-h-9">
+      <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="absolute top-5 left-5 w-11/12 flex flex-row justify-start">
+          <div className="bg-orange-500 text-sm md:text-lg xl:text-xl 2xl:text-2xl rounded-full font-bold p-3 md:p-4 border-orange-400 border-b-4">Projects</div>
+        </div>
+        <div className="w-11/12 border-b border-mono-gray-600 text-5xl font-notoSans font-bold p-5" ref={skillRef}>
           <div className="flex flex-row justify-center gap-1 sm:gap-3 xl:gap-5">
             <div className="flex flex-col justify-end items-end">
               <CardGroup title="Frontend">
@@ -195,29 +226,30 @@ const Projects = () => {
                 ))}
               </CardGroup>
             </div>
-            <div className="flex flex-row justify-start flex-wrap gap-1 sm:gap-3 xl:gap-5">
-              <CardGroup title="Backend">
-                <Card url="images/logo/nodejs.svg" />
-                <Card url="images/logo/nestjs.svg" />
-                <Card url="images/logo/golang.png" />
+            <div className="flex flex-row-reverse justify-end flex-wrap gap-1 sm:gap-3 xl:gap-5">
+              <CardGroup title="DevOps">
+                <Card url="images/logo/aws.svg" />
+                <Card url="images/logo/docker.png" />
               </CardGroup>
               <CardGroup title="DB">
                 <Card url="images/logo/mysql.png" />
                 <Card url="images/logo/prisma.svg" />
               </CardGroup>
-              <CardGroup title="DevOps">
-                <Card url="images/logo/aws.svg" />
-                <Card url="images/logo/docker.png" />
+
+              <CardGroup title="Backend">
+                <Card url="images/logo/nodejs.svg" />
+                <Card url="images/logo/nestjs.svg" />
+                <Card url="images/logo/golang.png" />
               </CardGroup>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col justify-start gap-3 items-center">
+        <div className="flex flex-col justify-start gap-3 items-center p-5" ref={slideRef}>
           <div className="w-[300px] sm:w-[600px] lg:w-[900px] 2xl:w-4/5 h-auto flex flex-col justify-start items-center overflow-scroll scrollbar-hide" ref={carouselRef}>
             <div className={`w-full h-full  flex flex-row justify-start items-center transition-all duration-500`} ref={itemWrapRef}>
               {projects.map((project, index) => (
-                <div key={index} className="pointer-events-none min-w-[300px] 2xl:min-w-[25%] w-full h-auto flex flex-col justify-center items-end p-3" ref={itemRef}>
+                <div key={index} className="pointer-events-none min-w-[300px] 2xl:min-w-[25%] w-full h-auto flex flex-col justify-center items-end p-3 pt-0" ref={itemRef}>
                   <div className="w-full h-auto rounded-md overflow-hidden aspect-1">
                     <img
                       src={`images/${project.image}`}

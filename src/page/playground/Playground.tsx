@@ -1,3 +1,7 @@
+// svg 충돌
+
+// web gpu
+
 const Playground = () => {
   return (
     <div className="h-[calc(120vh)] bg-mono-gray-850">
