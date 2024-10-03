@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import LinkSVG from "../assets/link.svg?react";
 import ArrowLeft from "../assets/arrow-left.svg?react";
 import ArrowRight from "../assets/arrow-right.svg?react";
@@ -52,7 +52,6 @@ const Projects = () => {
     { image: "whiteboard.png", url: "https://ohddang.github.io/whiteboard" },
     { image: "pq.png", url: "https://github.com/Codeit-part4-team3" },
     { image: "upbit.png", url: "https://chromewebstore.google.com/detail/upbit-gazua/hnjekbfjeongcjipokedmkkjpgffpjop?hl=ko&authuser=0" },
-    { image: "tetris.png", url: "https://ohddang.github.io/react-tetris/tetris" },
   ];
 
   const calculateShowCount = () => {
@@ -96,15 +95,10 @@ const Projects = () => {
 
     if (itemRef.current) {
       scrollX.current = itemRef.current.clientWidth;
-      console.log(scrollX.current);
-    }
-    if (itemWrapRef.current) {
-      const width = scrollX.current * showCount;
-      // itemWrapRef.current.styles.width = `${width}px`;
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const hideCount = projects.length - showCount;
     setCurrentIndex((prevIndex) => (prevIndex >= hideCount ? hideCount : prevIndex));
 
@@ -134,7 +128,7 @@ const Projects = () => {
     };
   }, [showCount]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const carouselElement = carouselRef.current;
     if (!carouselElement) return;
 
@@ -187,6 +181,9 @@ const Projects = () => {
     }
 
     const hideCount = projects.length - showCount;
+
+    console.log(currentIndex, hideCount);
+
     if (currentIndex === hideCount) {
       nextButtonRef.current!.classList.add("pointer-events-none");
       nextButtonRef.current!.style.opacity = "0.5";
@@ -202,22 +199,22 @@ const Projects = () => {
       prevButtonRef.current!.classList.remove("pointer-events-none");
       prevButtonRef.current!.style.opacity = "1";
     }
-  }, [currentIndex]);
+  }, [currentIndex, showCount]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     calculateShowCount();
     scrollX.current = itemRef.current!.clientWidth;
   }, []);
 
-  const frontendList = ["javascript.png", "typescript.png", "react.png", "nextjs.png", "tailwind.png", "pixijs.svg", "rspack.svg"];
+  const frontendList = ["javascript.png", "typescript.png", "react.png", "nextjs.png", "tailwind.png", "threejs.png", "pixijs.svg", "rspack.svg"];
 
   return (
-    <section id="projects" className="relative min-h-[800px] h-screen bg-mono-gray-950 aspect-w-16 aspect-h-9">
+    <section id="projects" className="relative min-h-[800px] h-screen bg-gradient-to-b from-mono-gray-950 to-mono-gray-850 aspect-w-16 aspect-h-9">
       <div className="w-full h-full flex flex-col justify-center items-center">
         <div className="absolute top-5 left-5 w-11/12 flex flex-row justify-start">
           <div className="bg-orange-500 text-sm md:text-lg xl:text-xl 2xl:text-2xl rounded-full font-bold p-3 md:p-4 border-orange-400 border-b-4">Projects</div>
         </div>
-        <div className="w-11/12 border-b border-mono-gray-600 text-5xl font-notoSans font-bold p-5" ref={skillRef}>
+        <div className="w-11/12 border-b border-mono-gray-600 text-5xl font-notoSans font-bold p-12" ref={skillRef}>
           <div className="flex flex-row justify-center gap-1 sm:gap-3 xl:gap-5">
             <div className="flex flex-col justify-end items-end">
               <CardGroup title="Frontend">
@@ -245,7 +242,7 @@ const Projects = () => {
           </div>
         </div>
 
-        <div className="flex flex-col justify-start gap-3 items-center p-5" ref={slideRef}>
+        <div className="flex flex-col justify-start gap-3 items-center p-12" ref={slideRef}>
           <div className="w-[300px] sm:w-[600px] lg:w-[900px] 2xl:w-4/5 h-auto flex flex-col justify-start items-center overflow-scroll scrollbar-hide" ref={carouselRef}>
             <div className={`w-full h-full  flex flex-row justify-start items-center transition-all duration-500`} ref={itemWrapRef}>
               {projects.map((project, index) => (
@@ -256,7 +253,8 @@ const Projects = () => {
                       className="pointer-events-auto w-full h-full  transition-all duration-500 grayscale hover:grayscale-0 hover:scale-105"
                       onDragStart={(e) => {
                         e.preventDefault();
-                      }}></img>
+                      }}
+                    ></img>
                   </div>
                   <a href={project.url} target="_blank" rel="noopener noreferrer" className="pointer-events-auto text-blue-500 underline mt-2">
                     <LinkSVG className="w-8 h-8 inline-block" />
