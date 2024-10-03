@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
+import emailjs from "emailjs-com";
 
 const Contact = () => {
-  // const [threshold, setThreshold] = useState<number>(128);
   const threshold = useRef<number>(128);
   const mosaicSize = useRef<number>(10);
   const incrMosaicSize = useRef<number>(10);
   const waveOffset = useRef<number>(0);
+  const [formData, setFormData] = useState({
+    from_name: "",
+    email: "",
+    subject: "",
+    message: "",
+    to_email: "ohddang509@gmail.com",
+  });
 
   const outlineCanvasRef = React.useRef<HTMLCanvasElement>(null);
   const mosaicCanvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -13,6 +20,28 @@ const Contact = () => {
   const [waveCenter, setWaveCenter] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   const handleTimer = useRef<number>(0);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  // TODO: 유효성 체크 성공실패 처리 환경변수 처리
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    emailjs
+      .send("service_x15hx5f", "template_k5ccmlx", formData, "6kwm6-bFyc49wFO5C")
+      .then((result) => {
+        alert("Email sent successfully!");
+      })
+      .catch((error) => {
+        console.error("Failed to send email: ", error);
+      });
+  };
 
   const handleOutlineMouseOut = (e: React.MouseEvent) => {
     cancelAnimationFrame(handleTimer.current);
@@ -205,33 +234,97 @@ const Contact = () => {
     drawWave();
   }, []);
 
-  console.log("debug", 13 & 1);
-  console.log("debug", 13 & 2);
-  console.log("debug", 13 & 4);
-  console.log("debug", 13 & 8);
-
   // use offscreen canvas
   // 물결 효과
   return (
-    <section id="contact" className="relative h-screen bg-mono-gray-900 flex flex-row justify-center items-center">
+    <section id="contact" className="relative min-h-[800px] h-screen bg-gradient-to-b from-mono-gray-950 to-mono-gray-800  flex flex-row justify-center items-center">
       <div className="absolute top-5 left-5 w-11/12 flex flex-row justify-start">
         <div className="bg-blue-500 text-sm md:text-lg xl:text-xl 2xl:text-2xl rounded-full font-bold p-3 md:p-4 border-blue-400 border-b-4">Contact</div>
       </div>
-      <div className="w-full h-full  flex flex-row">
-        <div className="w-full h-full p-32">
-          <div className="grid grid-cols-2 grid-rows-2 gap-4 w-4/5 h-4/5 aspect-1 aspect-ratio-1/1">
-            <img className="w-full h-full rounded object-fit" src="images/509.png" />
-            <canvas className="w-full h-full rounded" ref={outlineCanvasRef} onMouseOver={handleOutlineMouseOver} onMouseOut={handleOutlineMouseOut}></canvas>
-            <canvas className="w-full h-full rounded" ref={mosaicCanvasRef} onMouseOver={handleMosaicMouseOver} onMouseOut={handleMosaicMouseOut}></canvas>
-            <canvas className="w-full h-full rounded" ref={waveCanvasRef} onMouseOver={handleWaveMouseOver} onMouseOut={handleWaveMouseOut} onMouseDown={handleMouseDown}></canvas>
+      <div className="flex w-fit h-fit lg:w-full lg:h-full flex-col md:flex-row justify-center gap-4 xl:gap-10">
+        <div className="hidden md:flex w-fit h-fit lg:w-full lg:h-full flex-col justify-center items-end lg:items-center gap-4">
+          <div className="flex flex-col lg:flex-row justify-end items-end gap-4">
+            <img className="w-12 h-12 md:w-[150px] md:h-[150px] xl:w-[250px] xl:h-[250px] rounded" src="images/509.png" />
+            <canvas
+              className="w-12 h-12 md:w-[150px] md:h-[150px] xl:w-[250px] xl:h-[250px] rounded"
+              ref={outlineCanvasRef}
+              onMouseOver={handleOutlineMouseOver}
+              onMouseOut={handleOutlineMouseOut}></canvas>
+          </div>
+
+          <div className="flex flex-col lg:flex-row justify-end items-start gap-4">
+            <canvas
+              className="w-12 h-12 md:w-[150px] md:h-[150px] xl:w-[250px] xl:h-[250px] rounded"
+              ref={mosaicCanvasRef}
+              onMouseOver={handleMosaicMouseOver}
+              onMouseOut={handleMosaicMouseOut}></canvas>
+            <canvas
+              className="w-12 h-12 md:w-[150px] md:h-[150px] xl:w-[250px] xl:h-[250px] rounded"
+              ref={waveCanvasRef}
+              onMouseOver={handleWaveMouseOver}
+              onMouseOut={handleWaveMouseOut}
+              onMouseDown={handleMouseDown}></canvas>
           </div>
         </div>
-        <div className="w-full h-full">
-          <div>email</div>
-          <div>phone</div>
-          <div>github</div>
-          <div>blog</div>
-          <div>resume</div>
+        <div className="w-full h-full flex flex-col justify-center gap-5 xl:gap-10">
+          <div className="flex flex-col gap-2">
+            <div className="font-extrabold text-xl">Telephone</div>
+            <div className="flex flex-row gap-2">
+              <img className="w-7 h-7" src="images/logo/smartphone.svg" alt="phone" /> <span>010-3937-2157</span>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <div className="font-extrabold text-xl">E-mail</div>
+            <div className="flex flex-row gap-2">
+              <img className="w-7 h-7" src="images/logo/email.svg" alt="email" />
+              <span
+                className="cursor-pointer"
+                onPointerDown={() => {
+                  navigator.clipboard.writeText("ohddang509@gmail.com").then(() => {
+                    alert("Email copied to clipboard!");
+                  });
+                }}>
+                ohddang509@gmail.com
+              </span>
+            </div>
+
+            <div className="flex flex-row gap-2">
+              <img className="w-7 h-7" src="images/logo/discord.svg" alt="discord" />
+              <a href=" https://discordapp.com/channels/@fivezerogon/3276/">ohddang</a>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="w-fit xl:w-4/5 flex flex-col gap-4 bg-gradient-to-tr from-mono-gray-950 to-mono-gray-850 rounded-md border border-gray-600 p-5">
+            <div>
+              <p className="mb-1">Name</p>
+              <input name="from_name" value={formData.from_name} onChange={handleChange} className="border border-gray-600 bg-mono-gray-900 rounded p-1 "></input>
+            </div>
+            <div>
+              <p className="mb-1">Email*</p>
+              <input name="email" value={formData.from_email} onChange={handleChange} className="border border-gray-600 bg-mono-gray-900 rounded p-1"></input>
+            </div>
+            <div>
+              <p className="mb-1">Subject</p>
+              <input name="subject" value={formData.subject} onChange={handleChange} className="border border-gray-600 bg-mono-gray-900 rounded p-1"></input>
+            </div>
+            <div>
+              <p className="mb-1">Message*</p>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                className="w-full text-start align-top border border-gray-600 bg-mono-gray-900 rounded p-1"></textarea>
+            </div>
+            <div>
+              <p className="text-xs">*required</p>
+            </div>
+            <div className="w-full">
+              <button type="submit" className="w-full bg-blue-500 text-sm md:text-lg xl:text-xl 2xl:text-2xl rounded-full font-bold p-3 md:p-4 border-blue-400 border-b-4">
+                <span>Send</span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </section>

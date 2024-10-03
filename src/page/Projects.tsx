@@ -243,18 +243,19 @@ const Projects = () => {
         </div>
 
         <div className="flex flex-col justify-start gap-3 items-center p-12" ref={slideRef}>
-          <div className="w-[300px] sm:w-[600px] lg:w-[900px] 2xl:w-4/5 h-auto flex flex-col justify-start items-center overflow-scroll scrollbar-hide" ref={carouselRef}>
+          <div
+            className="w-[300px] sm:w-[600px] lg:w-[900px] 2xl:w-4/5 h-auto flex flex-col justify-start items-center bg-gradient-to-tr from-mono-gray-950 to-mono-gray-850 rounded-md border border-gray-600 overflow-scroll scrollbar-hide"
+            ref={carouselRef}>
             <div className={`w-full h-full  flex flex-row justify-start items-center transition-all duration-500`} ref={itemWrapRef}>
               {projects.map((project, index) => (
-                <div key={index} className="pointer-events-none min-w-[300px] 2xl:min-w-[25%] w-full h-auto flex flex-col justify-center items-end p-3 pt-0" ref={itemRef}>
+                <div key={index} className="pointer-events-none min-w-[300px] 2xl:min-w-[25%] w-full h-auto flex flex-col justify-center items-end p-5" ref={itemRef}>
                   <div className="w-full h-auto rounded-md overflow-hidden aspect-1">
                     <img
                       src={`images/${project.image}`}
                       className="pointer-events-auto w-full h-full  transition-all duration-500 grayscale hover:grayscale-0 hover:scale-105"
                       onDragStart={(e) => {
                         e.preventDefault();
-                      }}
-                    ></img>
+                      }}></img>
                   </div>
                   <a href={project.url} target="_blank" rel="noopener noreferrer" className="pointer-events-auto text-blue-500 underline mt-2">
                     <LinkSVG className="w-8 h-8 inline-block" />

@@ -150,7 +150,7 @@ const Nav = () => {
             </Link>
           </div>
         </div>
-        <div className={`hidden ${hide ? "" : "xl:flex h-12"} bg-blue-500 border-r-4 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600`}>
+        <div className={`hidden ${hide ? "" : "xl:flex h-12"} bg-blue-500 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600`}>
           <Link to="/#contact">Contact</Link>
         </div>
       </div>
