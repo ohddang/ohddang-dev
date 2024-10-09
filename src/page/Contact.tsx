@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import emailjs from "emailjs-com";
 
 const Contact = () => {
@@ -114,7 +114,7 @@ const Contact = () => {
 
     if (waveCanvasRef.current) {
       const waveCanvas = waveCanvasRef.current;
-      const waveCtx = waveCanvas.getContext("2d");
+      const waveCtx = waveCanvas.getContext("2d", { willReadFrequently: true });
       if (waveCtx) {
         waveCtx.drawImage(image, 0, 0, waveCanvas.width, waveCanvas.height);
         const imageData = waveCtx.getImageData(0, 0, waveCanvas.width, waveCanvas.height);
@@ -149,7 +149,7 @@ const Contact = () => {
 
     if (mosaicCanvasRef.current) {
       const mosaicCanvas = mosaicCanvasRef.current;
-      const mosaicCtx = mosaicCanvas.getContext("2d");
+      const mosaicCtx = mosaicCanvas.getContext("2d", { willReadFrequently: true });
       if (mosaicCtx) {
         mosaicCtx.drawImage(image, 0, 0, mosaicCanvas.width, mosaicCanvas.height);
         const imageData = mosaicCtx.getImageData(0, 0, mosaicCanvas.width, mosaicCanvas.height);
@@ -206,7 +206,7 @@ const Contact = () => {
 
     if (outlineCanvasRef.current) {
       const outlineCanvas = outlineCanvasRef.current;
-      const outlineCtx = outlineCanvas.getContext("2d");
+      const outlineCtx = outlineCanvas.getContext("2d", { willReadFrequently: true });
       if (outlineCtx) {
         outlineCtx.drawImage(image, 0, 0, outlineCanvas.width, outlineCanvas.height);
         const imageData = outlineCtx.getImageData(0, 0, outlineCanvas.width, outlineCanvas.height);
@@ -229,9 +229,11 @@ const Contact = () => {
   };
 
   useEffect(() => {
-    drawOutline();
-    drawMosaic();
-    drawWave();
+    setTimeout(() => {
+      drawOutline();
+      drawMosaic();
+      drawWave();
+    });
   }, []);
 
   // use offscreen canvas
@@ -302,7 +304,7 @@ const Contact = () => {
             </div>
             <div>
               <p className="mb-1">Email*</p>
-              <input name="email" value={formData.from_email} onChange={handleChange} className="border border-gray-600 bg-mono-gray-900 rounded p-1"></input>
+              <input name="email" value={formData.email} onChange={handleChange} className="border border-gray-600 bg-mono-gray-900 rounded p-1"></input>
             </div>
             <div>
               <p className="mb-1">Subject</p>

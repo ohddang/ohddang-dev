@@ -104,25 +104,25 @@ const Nav = () => {
 
   return (
     <div
-      className={`bg-mono-gray-900 w-fit xl:w-8/12 xl:h-16 min-h-16 position: fixed top-5 left-1/2 -translate-x-1/2 ${
+      className={`bg-mono-gray-900 ${hide ? "scale-0" : "scale-100"} w-fit xl:w-1/2 xl:h-16 min-h-16 position: fixed top-5 left-1/2 -translate-x-1/2 ${
         isRoundedFull ? "rounded-full" : "rounded-[32px]"
-      } border-transparent font-bold text-xs sm:text-sm md:text-base xl:text-lg z-10 transition-transform duration-500`}
+      } border-transparent font-bold text-xs sm:text-sm md:text-base xl:text-lg z-10 transition-all duration-500`}
       ref={navRef}>
       <div
         className={`absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 ${
           isRoundedFull ? "rounded-full" : "rounded-[32px]"
         } color-morph-border p-[3px]`}></div>
-      <div className="relative w-full h-full flex flex-row justify-between items-start xl:items-center gap-1 p-2 overflow-hidden">
+      <div className={`relative w-full h-full flex flex-row justify-between items-start xl:items-center gap-1 p-2 overflow-hidden`}>
         <div className="rotate-z">
           <div className="w-12 h-12 border-[3px] border-white rounded-full bg-gradient-to-r from-purple-500 to-yellow-500 text-base text-center transition duration-300 cursor-pointer rotate-gradient">
             <div onPointerDown={handlePointerDown}>ODD</div>
           </div>
         </div>
-        <div className={`${hide ? "hidden" : "flex"} flex-row flex-wrap justify-end items-center gap-2 sm:gap-3 md:gap-4 xl:gap-6 m-2 xl:mt-0 xl:mb-0`}>
-          <div className="flex flex-row items-center gap-2">
-            <SoccerSVG id="soccer-icon" className="w-6 h-6 md:w-8 md:h-8" />
+        <div className={`flex flex-row justify-end items-center gap-2 sm:gap-3 md:gap-4 xl:gap-6 m-2 xl:mt-0 xl:mb-0 transition-all duration-500`}>
+          <div className={`  flex flex-row items-center gap-2 transition-all duration-500 `}>
+            <SoccerSVG id="soccer-icon" className={`  w-6 h-6 md:w-8 md:h-8 `} />
             <Link
-              className="underline-offset-8 hover:underline"
+              className={` underline-offset-8 hover:underline transition-all duration-500`}
               to="/playground"
               onMouseOver={(e) => handleMouseOver(e, "soccer-path")}
               onMouseOut={(e) => handleMouseOut(e, "soccer-path")}>
@@ -150,7 +150,7 @@ const Nav = () => {
             </Link>
           </div>
         </div>
-        <div className={`hidden ${hide ? "" : "xl:flex h-12"} bg-blue-500 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600`}>
+        <div className={` xl:flex h-12  bg-blue-500 border-b-4 border-blue-400 rounded-full px-4 hover:bg-blue-600 transition-all duration-500`}>
           <Link to="/#contact">Contact</Link>
         </div>
       </div>

@@ -179,10 +179,7 @@ const Projects = () => {
     if (carouselRef.current) {
       smoothScrollTo(currentIndex * scrollX.current, 300);
     }
-
     const hideCount = projects.length - showCount;
-
-    console.log(currentIndex, hideCount);
 
     if (currentIndex === hideCount) {
       nextButtonRef.current!.classList.add("pointer-events-none");

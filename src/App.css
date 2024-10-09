@@ -203,3 +203,43 @@ body {
 .slide-in-left {
   animation: slideInLeft 0.7s ease-out;
 }
+
+@keyframes swing {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(30deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-30deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes swing-inverse {
+  0% {
+    transform: rotate(180deg);
+  }
+  25% {
+    transform: rotate(210deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(150deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+/* .swing-slow {
+  animation: swing 1s linear infinite;
+} */

@@ -212,7 +212,7 @@ const Passion = () => {
 
   return (
     <div id="passion" className="relative h-screen bg-mono-gray-900">
-      <div className={`w-full h-full transition-transform duration-500 ${disapper ? "scale-100" : "scale-0"}`}>
+      <div className={`w-full h-full flex flex-row transition-transform duration-500 ${disapper ? "scale-100" : "scale-0"}`}>
         <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 1000 1000" ref={svgRef}>
           <defs>
             <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -236,7 +236,7 @@ const Passion = () => {
 
             <LineCircleText x1="500" y1="500" x2="500" y2="250" r="30" text="AI" fontSize="16" />
             <LineCircleText x1="500" y1="500" x2="200" y2="650" r="40" text="3D" fontSize="16" />
-            <LineCircleText x1="500" y1="500" x2="100" y2="500" r="40" text="AWS" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="150" y2="480" r="40" text="AWS" fontSize="16" />
             <LineCircleText x1="500" y1="500" x2="300" y2="300" r="70" text="FrontEnd" fontSize="16" />
             <LineCircleText x1="500" y1="500" x2="800" y2="250" r="70" text="Javascript" fontSize="16" />
             <LineCircleText x1="500" y1="500" x2="850" y2="700" r="60" text="Canvas" fontSize="16" />
@@ -244,10 +244,20 @@ const Passion = () => {
             <LineCircleText x1="500" y1="500" x2="550" y2="750" r="40" text="Stock" fontSize="16" />
           </g>
         </svg>
+
         <div className="relative w-full h-full flex flex-row gap-5 justify-center items-center" ref={profileWrapperRef}>
           <div className="rounded-full overflow-hidden z-1" ref={profileRef} onMouseMove={handleMouseMove}>
             <img className="w-full h-full" src="images/509.png" alt="509" />
           </div>
+        </div>
+        <div className="hidden 2xl:flex gap-1 absolute top-1/4 left-32 text-black text-3xl text-center font-extrabold rounded transform flex-col animate-swing">
+          <p className="bg-white shadow-md shadow-mono-gray-100 p-3 rounded">My Interests</p>
+          <p className="bg-white -scale-y-100 opacity-10 p-3 rounded">My Interests</p>
+        </div>
+
+        <div className="hidden 2xl:flex gap-1 absolute top-3/4 right-32 text-black text-3xl text-center font-extrabold rounded transform flex-col animate-swing-inverse">
+          <p className="bg-white shadow-md shadow-mono-gray-100 p-3 rounded">My Interests</p>
+          <p className="bg-white -scale-y-100 opacity-10 p-3 rounded">My Interests</p>
         </div>
       </div>
     </div>
