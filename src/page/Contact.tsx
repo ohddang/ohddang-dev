@@ -20,6 +20,11 @@ const Contact = () => {
   const [waveCenter, setWaveCenter] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   const handleTimer = useRef<number>(0);
+  const okModalRef = useRef<HTMLDialogElement>(null);
+  const failModalRef = useRef<HTMLDialogElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const submitRef = useRef<HTMLSpanElement>(null);
+  const [errorMsg, setErrorMsg] = useState<string>("Please fill out the required fields.");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -33,14 +38,60 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    emailjs
-      .send("service_x15hx5f", "template_k5ccmlx", formData, "6kwm6-bFyc49wFO5C")
-      .then((result) => {
-        alert("Email sent successfully!");
-      })
-      .catch((error) => {
-        console.error("Failed to send email: ", error);
-      });
+    const loadingInterval = setInterval(() => {
+      submitRef.current!.innerText += ".";
+      if (submitRef.current!.innerText.length > 7) {
+        submitRef.current!.innerText = "Send";
+      }
+    }, 300);
+
+    if (!formData.email || !formData.message) {
+      console.log(formData.email, formData.message);
+
+      setErrorMsg("Please fill out the required fields.");
+      failModalRef.current?.showModal();
+      clearInterval(loadingInterval);
+      submitRef.current!.innerText = "Send";
+      return;
+    } else if (formData.email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/) === null) {
+      setErrorMsg("Invalid email format.");
+      failModalRef.current?.showModal();
+      clearInterval(loadingInterval);
+      submitRef.current!.innerText = "Send";
+      return;
+    }
+
+    buttonRef.current!.disabled = true;
+
+    setTimeout(async () => {
+      try {
+        await emailjs.send("service_x15hx5f", "template_k5ccmlx", formData, "6kwm6-bFyc49wFO5C");
+        okModalRef.current?.showModal();
+      } catch (error) {
+        if (error instanceof Error) setErrorMsg(error.message || "Failed to send email.");
+        else setErrorMsg("Failed to send email.");
+        failModalRef.current?.showModal();
+      } finally {
+        buttonRef.current!.disabled = false;
+        clearInterval(loadingInterval);
+        submitRef.current!.innerText = "Send";
+      }
+    }, 0);
+
+    // emailjs
+    //   .send("service_x15hx5f", "template_k5ccmlx", formData, "6kwm6-bFyc49wFO5C")
+    //   .then((result) => {
+    //     okModalRef.current?.showModal();
+    //   })
+    //   .catch((error) => {
+    //     setErrorMsg(error);
+    //     console.error("Failed to send email: ", error);
+    //   })
+    //   .finally(() => {
+    //     buttonRef.current!.disabled = false;
+    //     clearInterval(loadingInterval);
+    //     submitRef.current!.innerText = "Send";
+    //   });
   };
 
   const handleOutlineMouseOut = (e: React.MouseEvent) => {
@@ -229,6 +280,9 @@ const Contact = () => {
   };
 
   useEffect(() => {
+    okModalRef.current?.close();
+    failModalRef.current?.close();
+
     setTimeout(() => {
       drawOutline();
       drawMosaic();
@@ -322,13 +376,34 @@ const Contact = () => {
               <p className="text-xs">*required</p>
             </div>
             <div className="w-full">
-              <button type="submit" className="w-full bg-blue-500 text-sm md:text-lg xl:text-xl 2xl:text-2xl rounded-full font-bold p-3 md:p-4 border-blue-400 border-b-4">
-                <span>Send</span>
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-sm md:text-lg xl:text-xl 2xl:text-2xl rounded-full font-bold p-3 md:p-4 border-blue-400 border-b-4"
+                ref={buttonRef}>
+                <span ref={submitRef}>Send</span>
               </button>
             </div>
           </form>
         </div>
       </div>
+
+      <dialog className="w-full h-full bg-transparent" ref={failModalRef}>
+        <form method="dialog" className="flex justify-center items-center">
+          <div className="w-fit flex flex-col items-center bg-mono-gray-900 rounded border-2 border-mono-gray-600 text-white p-5">
+            <p>{errorMsg}</p>
+            <button className="mt-4 bg-red-500 text-sm rounded font-bold p-2 border-red-400 border-b-4">Close</button>
+          </div>
+        </form>
+      </dialog>
+
+      <dialog className="w-full h-full bg-transparent" ref={okModalRef}>
+        <form method="dialog" className="flex justify-center items-center">
+          <div className="w-fit flex flex-col items-center bg-mono-gray-900 rounded border-2 border-mono-gray-600 text-white p-5">
+            <p>Email sent successfully!</p>
+            <button className="mt-4 bg-blue-500 text-sm rounded font-bold p-2 border-blue-400 border-b-4">Close</button>
+          </div>
+        </form>
+      </dialog>
     </section>
   );
 };
