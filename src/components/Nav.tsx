@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import SoccerSVG from "../assets/soccer.svg?react";
+import ToolSVG from "../assets/tool.svg?react";
 import PassionSVG from "../assets/fire.svg?react";
 import ProjectsSVG from "../assets/projects.svg?react";
 import ExperienceSVG from "../assets/experience.svg?react";
@@ -45,7 +45,7 @@ const Nav = () => {
   }, [pathname, hash]);
 
   useEffect(() => {
-    const soccerIcon = document.querySelector("#soccer-icon");
+    const soccerIcon = document.querySelector("#tool-icon");
     if (soccerIcon) {
       const paths = soccerIcon.querySelectorAll("path");
       for (let i = 0; i < paths.length; i++) {
@@ -120,13 +120,13 @@ const Nav = () => {
         </div>
         <div className={`flex flex-row justify-end items-center gap-2 sm:gap-3 md:gap-4 xl:gap-6 m-2 xl:mt-0 xl:mb-0 transition-all duration-500`}>
           <div className={`  flex flex-row items-center gap-2 transition-all duration-500 `}>
-            <SoccerSVG id="soccer-icon" className={`  w-6 h-6 md:w-8 md:h-8 `} />
+            <ToolSVG id="tool-icon" className={`  w-6 h-6 md:w-8 md:h-8 `} />
             <Link
               className={` underline-offset-8 hover:underline transition-all duration-500`}
-              to="/playground"
+              to="/garage"
               onMouseOver={(e) => handleMouseOver(e, "soccer-path")}
               onMouseOut={(e) => handleMouseOut(e, "soccer-path")}>
-              Playground
+              Garage
             </Link>
           </div>
           <div className="flex flex-row items-center gap-2">

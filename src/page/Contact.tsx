@@ -400,7 +400,7 @@ const Contact = () => {
         <form method="dialog" className="flex justify-center items-center">
           <div className="w-fit flex flex-col items-center bg-mono-gray-900 rounded border-2 border-mono-gray-600 text-white p-5">
             <p>Email sent successfully!</p>
-            <button className="mt-4 bg-blue-500 text-sm rounded font-bold p-2 border-blue-400 border-b-4">Close</button>
+            <button className="mt-4 bg-blue-500 text-sm rounded font-bold p-2 border-blue-400 border-b-4">Done</button>
           </div>
         </form>
       </dialog>
