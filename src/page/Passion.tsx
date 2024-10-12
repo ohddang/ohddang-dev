@@ -250,14 +250,16 @@ const Passion = () => {
             <img className="w-full h-full" src="images/509.png" alt="509" />
           </div>
         </div>
-        <div className="hidden 2xl:flex gap-1 absolute top-1/4 left-32 text-black text-3xl text-center font-extrabold rounded transform flex-col animate-swing">
+        <div className="hidden 2xl:flex absolute top-1/4 left-32 text-black text-3xl text-center font-extrabold rounded transform flex-col animate-swing">
           <p className="bg-white shadow-md shadow-mono-gray-100 p-3 rounded">My Interests</p>
-          <p className="bg-white -scale-y-100 opacity-10 p-3 rounded">My Interests</p>
+          <p className="bg-white -scale-y-100 opacity-10 p-3 rounded mask-face-out">My Interests</p>
         </div>
 
-        <div className="hidden 2xl:flex gap-1 absolute top-3/4 right-32 text-black text-3xl text-center font-extrabold rounded transform flex-col animate-swing-inverse">
+        <div className="hidden 2xl:flex absolute top-3/4 right-32 text-black text-3xl text-center font-extrabold rounded transform flex-col gap-1 animate-swing-inverse">
           <p className="bg-white shadow-md shadow-mono-gray-100 p-3 rounded">My Interests</p>
-          <p className="bg-white -scale-y-100 opacity-10 p-3 rounded">My Interests</p>
+          <div className="gradient-alpha ">
+            <p className="-scale-y-100 p-3 rounded mask-fade-out">My Interests</p>
+          </div>
         </div>
       </div>
     </div>

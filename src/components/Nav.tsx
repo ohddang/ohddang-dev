@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import ToolSVG from "../assets/tool.svg?react";
 import PassionSVG from "../assets/fire.svg?react";
 import ProjectsSVG from "../assets/projects.svg?react";
-import ExperienceSVG from "../assets/experience.svg?react";
 
 const Nav = () => {
   const { pathname, hash } = useLocation();
@@ -12,6 +11,8 @@ const Nav = () => {
   const [resizable, setResizable] = useState<boolean>(false);
   const [scaleUp, setScaleUp] = useState<boolean>(window.innerWidth > 1279);
   const [hide, setHide] = useState<boolean>(false);
+
+  const maskOptions = pathname === "/garage" ? "color-morph-body" : "color-morph-border";
 
   const handleMouseOver = (e: React.MouseEvent, className: string) => {
     const target = e.target as HTMLElement;
@@ -45,15 +46,7 @@ const Nav = () => {
   }, [pathname, hash]);
 
   useEffect(() => {
-    const soccerIcon = document.querySelector("#tool-icon");
-    if (soccerIcon) {
-      const paths = soccerIcon.querySelectorAll("path");
-      for (let i = 0; i < paths.length; i++) {
-        // console.log(soccerIcon, i, paths[i].getTotalLength());
-      }
-    }
-
-    const element = document.querySelector(".color-morph-border");
+    const element = document.querySelector(".nav-background-style");
     let hue = 0;
 
     const changeColor = () => {
@@ -104,14 +97,14 @@ const Nav = () => {
 
   return (
     <div
-      className={`bg-mono-gray-900 ${hide ? "scale-0" : "scale-100"} w-fit xl:w-1/2 xl:h-16 min-h-16 position: fixed top-5 left-1/2 -translate-x-1/2 ${
+      className={`bg-mono-gray-900 ${hide ? "scale-0" : "scale-100"} w-fit xl:w-1/2 xl:h-16 min-h-16 fixed top-5 left-1/2 -translate-x-1/2 ${
         isRoundedFull ? "rounded-full" : "rounded-[32px]"
       } border-transparent font-bold text-xs sm:text-sm md:text-base xl:text-lg z-10 transition-all duration-500`}
       ref={navRef}>
       <div
-        className={`absolute inset-0 bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 ${
+        className={`absolute inset-[-1px] bg-gradient-to-r from-red-500 via-green-500 to-yellow-500 ${
           isRoundedFull ? "rounded-full" : "rounded-[32px]"
-        } color-morph-border p-[3px]`}></div>
+        } nav-background-style ${maskOptions} p-[3px]`}></div>
       <div className={`relative w-full h-full flex flex-row justify-between items-start xl:items-center gap-1 p-2 overflow-hidden`}>
         <div className="rotate-z">
           <div className="w-12 h-12 border-[3px] border-white rounded-full bg-gradient-to-r from-purple-500 to-yellow-500 text-base text-center transition duration-300 cursor-pointer rotate-gradient">

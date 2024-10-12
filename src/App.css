@@ -75,6 +75,23 @@ body {
   mask-composite: exclude;
 }
 
+.color-morph-body {
+  mask: linear-gradient(#fff, #fff), linear-gradient(to left, #ffff, #fff0) content-box;
+  mask-composite: exclude;
+}
+
+.mask-fade-out {
+  -webkit-mask: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  -webkit-mask-composite: destination-in;
+
+  mask: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  mask-composiie: intersect;
+}
+
+.gradient-alpha {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
 @keyframes slide-down {
   0% {
     transform: translateX(-50%) translateY(-200%);
