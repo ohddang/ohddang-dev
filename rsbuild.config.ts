@@ -13,8 +13,8 @@ export default defineConfig({
   ],
   html: {
     meta: [
-      { tag: "meta", attrs: { name: "og:title", content: "Ohddang's Website" } },
-      { tag: "meta", attrs: { name: "og:description", content: "프론트엔드 개발자 오영곤의 웹사이트입니다." } },
+      { tag: "meta", attrs: { property: "og:title", content: "Ohddang's Website" } },
+      { tag: "meta", attrs: { property: "og:description", content: "프론트엔드 개발자 오영곤의 웹사이트입니다." } },
       { tag: "meta", attrs: { property: "og:image", content: "./images/509.webp" } },
     ],
     tags: [
