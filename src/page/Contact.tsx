@@ -14,10 +14,10 @@ const Contact = () => {
     to_email: "ohddang509@gmail.com",
   });
 
+  const normalCanvasRef = React.useRef<HTMLCanvasElement>(null);
   const outlineCanvasRef = React.useRef<HTMLCanvasElement>(null);
   const mosaicCanvasRef = React.useRef<HTMLCanvasElement>(null);
   const waveCanvasRef = React.useRef<HTMLCanvasElement>(null);
-  const [waveCenter, setWaveCenter] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   const handleTimer = useRef<number>(0);
   const okModalRef = useRef<HTMLDialogElement>(null);
@@ -63,6 +63,7 @@ const Contact = () => {
 
     buttonRef.current!.disabled = true;
 
+    // TODO : 환경변수 처리
     setTimeout(async () => {
       try {
         await emailjs.send("service_x15hx5f", "template_k5ccmlx", formData, "6kwm6-bFyc49wFO5C");
@@ -77,21 +78,6 @@ const Contact = () => {
         submitRef.current!.innerText = "Send";
       }
     }, 0);
-
-    // emailjs
-    //   .send("service_x15hx5f", "template_k5ccmlx", formData, "6kwm6-bFyc49wFO5C")
-    //   .then((result) => {
-    //     okModalRef.current?.showModal();
-    //   })
-    //   .catch((error) => {
-    //     setErrorMsg(error);
-    //     console.error("Failed to send email: ", error);
-    //   })
-    //   .finally(() => {
-    //     buttonRef.current!.disabled = false;
-    //     clearInterval(loadingInterval);
-    //     submitRef.current!.innerText = "Send";
-    //   });
   };
 
   const handleOutlineMouseOut = (e: React.MouseEvent) => {
@@ -143,7 +129,6 @@ const Contact = () => {
   const handleMouseDown = (e: React.MouseEvent) => {
     if (waveCanvasRef.current) {
       const rect = waveCanvasRef.current.getBoundingClientRect();
-      setWaveCenter({ x: e.clientX - rect.left, y: e.clientY - rect.top });
 
       cancelAnimationFrame(handleTimer.current);
       const updateWaveCenter = () => {
@@ -156,7 +141,7 @@ const Contact = () => {
   };
 
   // circular wave
-  const drawWave = (centerRatio: { x: number; y: number } = { x: 0.5, y: 0.5 }) => {
+  const drawWave = async (centerRatio: { x: number; y: number } = { x: 0.5, y: 0.5 }) => {
     const image = new Image();
     image.src = "images/509.webp";
 
@@ -194,7 +179,7 @@ const Contact = () => {
     }
   };
 
-  const drawMosaic = () => {
+  const drawMosaic = async () => {
     const image = new Image();
     image.src = "images/509.webp";
 
@@ -251,7 +236,7 @@ const Contact = () => {
     }
   };
 
-  const drawOutline = () => {
+  const drawOutline = async () => {
     const image = new Image();
     image.src = "images/509.webp";
 
@@ -279,11 +264,25 @@ const Contact = () => {
     }
   };
 
+  const drawNormal = async () => {
+    const image = new Image();
+    image.src = "images/509.webp";
+
+    if (normalCanvasRef.current) {
+      const normalCanvas = normalCanvasRef.current;
+      const normalCtx = normalCanvas.getContext("2d", { willReadFrequently: true });
+      if (normalCtx) {
+        normalCtx.drawImage(image, 0, 0, normalCanvas.width, normalCanvas.height);
+      }
+    }
+  };
+
   useEffect(() => {
     okModalRef.current?.close();
     failModalRef.current?.close();
 
     setTimeout(() => {
+      drawNormal();
       drawOutline();
       drawMosaic();
       drawWave();
@@ -291,7 +290,6 @@ const Contact = () => {
   }, []);
 
   // use offscreen canvas
-  // 물결 효과
   return (
     <section id="contact" className="relative min-h-[800px] h-screen bg-gradient-to-b from-mono-gray-950 to-mono-gray-800  flex flex-row justify-center items-center">
       <div className="absolute top-5 left-5 w-11/12 flex flex-row justify-start">
@@ -300,7 +298,7 @@ const Contact = () => {
       <div className="flex w-fit h-fit lg:w-full lg:h-full flex-col md:flex-row justify-center gap-4 xl:gap-10">
         <div className="hidden md:flex w-fit h-fit lg:w-full lg:h-full flex-col justify-center items-end lg:items-center gap-4">
           <div className="flex flex-col lg:flex-row justify-end items-end gap-4">
-            <img className="w-12 h-12 md:w-[150px] md:h-[150px] xl:w-[250px] xl:h-[250px] rounded" src="images/509.webp" />
+            <canvas className="w-12 h-12 md:w-[150px] md:h-[150px] xl:w-[250px] xl:h-[250px] rounded" ref={normalCanvasRef}></canvas>
             <canvas
               className="w-12 h-12 md:w-[150px] md:h-[150px] xl:w-[250px] xl:h-[250px] rounded"
               ref={outlineCanvasRef}
