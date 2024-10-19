@@ -14,7 +14,7 @@ export default defineConfig({
     pluginOpenGraph({
       title: "Ohddang's Website",
       type: "website",
-      url: "https://rsbuild.dev/",
+      url: "https://ohddang-dev.vercel.app/",
       image: "./images/509.webp",
       description: "프론트엔드 개발자 오영곤의 웹사이트입니다.",
     }),
