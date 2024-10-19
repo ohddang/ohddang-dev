@@ -12,6 +12,10 @@ export default defineConfig({
     }),
   ],
   html: {
+    meta: [
+      { tag: "meta", attrs: { name: "description", content: "프론트엔드 개발자 오영곤입니다." } },
+      { tag: "meta", attrs: { property: "og:image", content: "./images/509.webp" } },
+    ],
     tags: [
       { tag: "link", attrs: { rel: "preconnect", href: "https://fonts.googleapis.com" } },
       { tag: "link", attrs: { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" } },
