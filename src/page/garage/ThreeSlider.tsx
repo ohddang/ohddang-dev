@@ -193,7 +193,7 @@ export default function ThreeSlider() {
 
     const handleMouseMove = (moveEvent: MouseEvent) => {
       const deltaX = moveEvent.clientX - startX;
-      setMoveX(initialMoveX + deltaX / 50); // Adjust the divisor to control the drag sensitivity
+      setMoveX(initialMoveX + deltaX / 20); // Adjust the divisor to control the drag sensitivity
     };
 
     const handleMouseUp = () => {

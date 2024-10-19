@@ -234,14 +234,13 @@ const Passion = () => {
             <rect id="rect1" width="50%" height="50%" x="25%" y="25%" fill="url(#grad1)" filter="url(#shadow)" />
             <rect id="rect2" width="50%" height="50%" x="25%" y="25%" fill="url(#grad2)" filter="url(#shadow)" />
 
-            <LineCircleText x1="500" y1="500" x2="500" y2="250" r="30" text="AI" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="450" y2="750" r="30" text="AI" fontSize="16" />
             <LineCircleText x1="500" y1="500" x2="200" y2="650" r="40" text="3D" fontSize="16" />
             <LineCircleText x1="500" y1="500" x2="150" y2="480" r="40" text="AWS" fontSize="16" />
-            <LineCircleText x1="500" y1="500" x2="300" y2="300" r="70" text="FrontEnd" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="350" y2="250" r="70" text="FrontEnd" fontSize="16" />
             <LineCircleText x1="500" y1="500" x2="800" y2="250" r="70" text="Javascript" fontSize="16" />
-            <LineCircleText x1="500" y1="500" x2="850" y2="700" r="60" text="Canvas" fontSize="16" />
+            <LineCircleText x1="500" y1="500" x2="700" y2="725" r="60" text="Canvas" fontSize="16" />
             <LineCircleText x1="500" y1="500" x2="850" y2="500" r="35" text="Golang" fontSize="16" />
-            <LineCircleText x1="500" y1="500" x2="550" y2="750" r="40" text="Stock" fontSize="16" />
           </g>
         </svg>
 

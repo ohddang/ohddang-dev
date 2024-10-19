@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Stage, Sprite, Graphics, Container, useTick } from "@pixi/react";
 import { Polygon, Graphics as GraphicsType, IHitArea } from "pixi.js";
 
-export default function AlphaColider() {
+export default function PolygonCollider() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
@@ -133,12 +133,36 @@ export default function AlphaColider() {
     dirY: number;
   }
 
+  const randomInit = () => {
+    const startSite = Math.floor(Math.random() * 4);
+    let x = 0;
+    let y = 0;
+    const degree = Math.random() * 360;
+    const dirX = Math.cos(degree);
+    const dirY = Math.sin(degree);
+
+    if (startSite === 0) {
+      x = 10;
+      y = 10;
+    } else if (startSite === 1) {
+      x = width - 10;
+      y = height - 10;
+    } else if (startSite === 2) {
+      x = 10;
+      y = height - 10;
+    } else {
+      x = width - 10;
+      y = 10;
+    }
+
+    return { x, y, degree, dirX, dirY };
+  };
+
   // 다수의 삼각형 생성 및 충돌 검사
   const Collision = ({ polygonPoints }: { polygonPoints: { x: number; y: number }[] }) => {
     const [triangles, setTriangles] = useState<triangleCollision[]>([]);
 
     useTick(() => {
-      console.log("tick");
       for (let i = 0; i < triangles.length; i++) {
         const triangle = triangles[i];
         let x = triangle.x + triangle.dirX * 0.4;
@@ -155,15 +179,16 @@ export default function AlphaColider() {
         }
 
         const hit = polygonPoints.some((point) => {
-          return Math.abs(point.x - x) + Math.abs(point.y - y) < 8;
+          return Math.abs(point.x - x) + Math.abs(point.y - y) < 10;
         });
 
         if (hit) {
-          x -= triangle.dirX * 2;
-          y -= triangle.dirY * 2;
+          const { x: randX, y: randY, dirX: randDirX, dirY: randDirY } = randomInit();
 
-          dirX *= -1;
-          dirY *= -1;
+          x = randX;
+          y = randY;
+          dirX = randDirX;
+          dirY = randDirY;
         }
 
         setTriangles((prev) => {
@@ -178,44 +203,8 @@ export default function AlphaColider() {
     });
 
     useEffect(() => {
-      for (let i = 0; i < 50; ++i) {
-        const x = 10;
-        const y = 10;
-        const degree = Math.random() * 360;
-        const dirX = Math.cos(degree);
-        const dirY = Math.sin(degree);
-
-        setTriangles((prev) => [...prev, { x, y, degree, dirX, dirY }]);
-      }
-
-      for (let i = 0; i < 50; ++i) {
-        const x = width - 10;
-        const y = height - 10;
-        const degree = Math.random() * 360;
-        const dirX = Math.cos(degree);
-        const dirY = Math.sin(degree);
-
-        setTriangles((prev) => [...prev, { x, y, degree, dirX, dirY }]);
-      }
-
-      for (let i = 0; i < 50; ++i) {
-        const x = 10;
-        const y = height - 10;
-        const degree = Math.random() * 360;
-        const dirX = Math.cos(degree);
-        const dirY = Math.sin(degree);
-
-        setTriangles((prev) => [...prev, { x, y, degree, dirX, dirY }]);
-      }
-
-      for (let i = 0; i < 50; ++i) {
-        const x = width - 10;
-        const y = 10;
-        const degree = Math.random() * 360;
-        const dirX = Math.cos(degree);
-        const dirY = Math.sin(degree);
-
-        setTriangles((prev) => [...prev, { x, y, degree, dirX, dirY }]);
+      for (let i = 0; i < 200; ++i) {
+        setTriangles((prev) => [...prev, randomInit()]);
       }
     }, []);
 
@@ -279,13 +268,13 @@ export default function AlphaColider() {
     <div className="w-full h-full" ref={wrapRef}>
       <Stage className="w-full h-full" width={width} height={height} options={{ background: 0x1099bb }}>
         <Sprite image={targetImageUrl} x={width / 2} y={height / 2} width={resizeWidth} height={(imageHeight / imageWidth) * resizeWidth} anchor={[0.5, 0.5]} />
-        {/* <VisualizeHitArea polygonPoints={polygonPoints} /> */}
+        <VisualizeHitArea polygonPoints={polygonPoints} />
         <Collision polygonPoints={polygonPoints} />
       </Stage>
       <div className="absolute top-3 left-3 text-black">
         <div className="flex flex-row gap-2">
           <img className="w-8 h-8" src="images/logo/pixijs.svg" />
-          <span>Polygon Colider</span>
+          <span>Polygon Collider</span>
         </div>
       </div>
       <div
