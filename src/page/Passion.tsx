@@ -246,7 +246,7 @@ const Passion = () => {
 
         <div className="relative w-full h-full flex flex-row gap-5 justify-center items-center" ref={profileWrapperRef}>
           <div className="rounded-full overflow-hidden z-1" ref={profileRef} onMouseMove={handleMouseMove}>
-            <img className="w-full h-full" src="images/509.png" alt="509" />
+            <img className="w-full h-full" src="images/509.webp" alt="509" />
           </div>
         </div>
         <div className="hidden 2xl:flex absolute top-1/4 left-32 text-black text-3xl text-center font-extrabold rounded transform flex-col animate-swing">

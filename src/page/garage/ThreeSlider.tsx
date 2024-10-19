@@ -1,18 +1,18 @@
-import * as THREE from "three";
+import { Vector3, Color, Texture, ShaderMaterial, Mesh, TextureLoader } from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 interface PictureProps {
-  position: THREE.Vector3;
+  position: Vector3;
   textureUrl: string;
 }
 
 function Picture(props: PictureProps) {
-  const [texture, setTexture] = useState<THREE.Texture>();
-  const [material, setMaterial] = useState<THREE.ShaderMaterial | null>(null);
-  const [position, setPosition] = useState<THREE.Vector3>(props.position);
-  const [lookAt, setLookAt] = useState<THREE.Vector3>(new THREE.Vector3(0, 0, 1));
-  const meshRef = useRef<THREE.Mesh>(null);
+  const [texture, setTexture] = useState<Texture>();
+  const [material, setMaterial] = useState<ShaderMaterial | null>(null);
+  const [position, setPosition] = useState<Vector3>(props.position);
+  const [lookAt, setLookAt] = useState<Vector3>(new Vector3(0, 0, 1));
+  const meshRef = useRef<Mesh>(null);
   const frameCountRef = useRef(Math.floor(Math.random() * 80));
   const boundDirectionRef = useRef(1);
   const [speed, setSpeed] = useState(Math.random() * 0.001 + 0.002);
@@ -35,18 +35,18 @@ function Picture(props: PictureProps) {
   useEffect(() => {
     if (!texture) return;
 
-    const cameraPos = new THREE.Vector3(-15, -5, 10);
+    const cameraPos = new Vector3(-15, -5, 10);
 
     if (Math.abs(props.position.x) < 10) {
       const delta = Math.abs(props.position.x) / 10;
       const convertZ = props.position.z + (1 - delta) * 20;
       const convertY = props.position.y - (1 - delta) * props.position.y;
 
-      const temp = new THREE.Vector3(props.position.x, props.position.y, props.position.z);
+      const temp = new Vector3(props.position.x, props.position.y, props.position.z);
       temp.setZ(convertZ);
       temp.setY(convertY);
 
-      const lookAtDirection = new THREE.Vector3(
+      const lookAtDirection = new Vector3(
         0 * delta + (1 - delta) * (cameraPos.x - temp.x),
         0 * delta + (1 - delta) * (cameraPos.y - temp.y),
         1 * delta + (1 - delta) * (cameraPos.z - temp.z)
@@ -56,7 +56,7 @@ function Picture(props: PictureProps) {
       setPosition(temp);
     } else {
       setPosition(props.position);
-      setLookAt(new THREE.Vector3(0, 0, 1));
+      setLookAt(new Vector3(0, 0, 1));
     }
 
     let fShader = "";
@@ -94,11 +94,11 @@ function Picture(props: PictureProps) {
         `,
       fragmentShader: fShader,
     };
-    setMaterial(new THREE.ShaderMaterial(shaders));
+    setMaterial(new ShaderMaterial(shaders));
   }, [texture, lookAt, props.position]);
 
   useEffect(() => {
-    const loader = new THREE.TextureLoader();
+    const loader = new TextureLoader();
     loader.load(
       props.textureUrl,
       (texture) => {
@@ -137,7 +137,7 @@ const InitScene = () => {
 
   useEffect(() => {
     if (scene) {
-      scene.background = new THREE.Color("rgb(236, 183, 9)");
+      scene.background = new Color("rgb(236, 183, 9)");
     }
   }, [scene]);
 
@@ -219,14 +219,14 @@ export default function ThreeSlider() {
     };
   }, [handleWheel, handleMouseDown]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const count = 9;
 
     const initialPictures: PictureProps[] = [];
 
     for (let i = 0; i < count; ++i) {
       initialPictures.push({
-        position: new THREE.Vector3(-50 + 12.5 * i, Math.random() * 20 - 10, -20),
+        position: new Vector3(-50 + 12.5 * i, Math.random() * 20 - 10, -20),
         textureUrl: `images/landscape/land${i + 1}.webp`,
       });
     }
@@ -243,7 +243,7 @@ export default function ThreeSlider() {
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
         <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
         {pictures.map((picture: any, index: number) => (
-          <Picture key={index} position={new THREE.Vector3(picture.position.x + moveX, picture.position.y, picture.position.z)} textureUrl={picture.textureUrl} />
+          <Picture key={index} position={new Vector3(picture.position.x + moveX, picture.position.y, picture.position.z)} textureUrl={picture.textureUrl} />
         ))}
       </Canvas>
       <div className="absolute top-3 left-3 text-black">

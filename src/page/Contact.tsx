@@ -158,7 +158,7 @@ const Contact = () => {
   // circular wave
   const drawWave = (centerRatio: { x: number; y: number } = { x: 0.5, y: 0.5 }) => {
     const image = new Image();
-    image.src = "images/509.png";
+    image.src = "images/509.webp";
 
     const amplitude = 3;
     const speed = 2.5;
@@ -196,7 +196,7 @@ const Contact = () => {
 
   const drawMosaic = () => {
     const image = new Image();
-    image.src = "images/509.png";
+    image.src = "images/509.webp";
 
     if (mosaicCanvasRef.current) {
       const mosaicCanvas = mosaicCanvasRef.current;
@@ -253,7 +253,7 @@ const Contact = () => {
 
   const drawOutline = () => {
     const image = new Image();
-    image.src = "images/509.png";
+    image.src = "images/509.webp";
 
     if (outlineCanvasRef.current) {
       const outlineCanvas = outlineCanvasRef.current;
@@ -300,7 +300,7 @@ const Contact = () => {
       <div className="flex w-fit h-fit lg:w-full lg:h-full flex-col md:flex-row justify-center gap-4 xl:gap-10">
         <div className="hidden md:flex w-fit h-fit lg:w-full lg:h-full flex-col justify-center items-end lg:items-center gap-4">
           <div className="flex flex-col lg:flex-row justify-end items-end gap-4">
-            <img className="w-12 h-12 md:w-[150px] md:h-[150px] xl:w-[250px] xl:h-[250px] rounded" src="images/509.png" />
+            <img className="w-12 h-12 md:w-[150px] md:h-[150px] xl:w-[250px] xl:h-[250px] rounded" src="images/509.webp" />
             <canvas
               className="w-12 h-12 md:w-[150px] md:h-[150px] xl:w-[250px] xl:h-[250px] rounded"
               ref={outlineCanvasRef}

@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Stage, Sprite, Graphics, Container, useTick } from "@pixi/react";
-import { Polygon, Graphics as GraphicsType, IHitArea } from "pixi.js";
+import { useEffect, useRef, useState } from "react";
+import { Stage, Sprite, Graphics, useTick } from "@pixi/react";
+import { Graphics as GraphicsType } from "pixi.js";
 
 export default function PolygonCollider() {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -241,10 +241,7 @@ export default function PolygonCollider() {
       g.endFill();
     };
 
-    const hitArea: number[] = polygonPoints.flatMap((point) => [point.x, point.y]);
-    const hitAreaPoly = new Polygon(hitArea);
-
-    return <Graphics draw={handleDraw} hitArea={hitAreaPoly} />;
+    return <Graphics draw={handleDraw} />;
   };
 
   const handleLoadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -268,8 +265,8 @@ export default function PolygonCollider() {
     <div className="w-full h-full" ref={wrapRef}>
       <Stage className="w-full h-full" width={width} height={height} options={{ background: 0x1099bb }}>
         <Sprite image={targetImageUrl} x={width / 2} y={height / 2} width={resizeWidth} height={(imageHeight / imageWidth) * resizeWidth} anchor={[0.5, 0.5]} />
-        <VisualizeHitArea polygonPoints={polygonPoints} />
-        <Collision polygonPoints={polygonPoints} />
+        {/* {polygonPoints && <VisualizeHitArea polygonPoints={polygonPoints} />} */}
+        {polygonPoints && <Collision polygonPoints={polygonPoints} />}
       </Stage>
       <div className="absolute top-3 left-3 text-black">
         <div className="flex flex-row gap-2">

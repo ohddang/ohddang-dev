@@ -48,10 +48,10 @@ const Projects = () => {
   }, []);
 
   const projects = [
-    { image: "tetris.png", url: "https://ohddang.github.io/react-tetris/tetris" },
-    { image: "whiteboard.png", url: "https://ohddang.github.io/whiteboard" },
-    { image: "pq.png", url: "https://github.com/Codeit-part4-team3" },
-    { image: "upbit.png", url: "https://chromewebstore.google.com/detail/upbit-gazua/hnjekbfjeongcjipokedmkkjpgffpjop?hl=ko&authuser=0" },
+    { image: "tetris.webp", url: "https://ohddang.github.io/react-tetris/tetris" },
+    { image: "whiteboard.webp", url: "https://ohddang.github.io/whiteboard" },
+    { image: "pq.webp", url: "https://github.com/Codeit-part4-team3" },
+    { image: "upbit.webp", url: "https://chromewebstore.google.com/detail/upbit-gazua/hnjekbfjeongcjipokedmkkjpgffpjop?hl=ko&authuser=0" },
   ];
 
   const calculateShowCount = () => {
