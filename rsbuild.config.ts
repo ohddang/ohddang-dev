@@ -1,6 +1,7 @@
 import { defineConfig } from "@rsbuild/core";
 import { pluginReact } from "@rsbuild/plugin-react";
 import { pluginSvgr } from "@rsbuild/plugin-svgr";
+import { pluginOpenGraph } from "rsbuild-plugin-open-graph";
 
 export default defineConfig({
   plugins: [
@@ -10,13 +11,17 @@ export default defineConfig({
         exportType: "named",
       },
     }),
+    pluginOpenGraph({
+      title: "Ohddang's Website",
+      type: "website",
+      url: "https://rsbuild.dev/",
+      image: "./images/509.webp",
+      description: "프론트엔드 개발자 오영곤의 웹사이트입니다.",
+    }),
   ],
   html: {
-    meta: [
-      { tag: "meta", attrs: { property: "og:title", content: "Ohddang's Website" } },
-      { tag: "meta", attrs: { property: "og:description", content: "프론트엔드 개발자 오영곤의 웹사이트입니다." } },
-      { tag: "meta", attrs: { property: "og:image", content: "./images/509.webp" } },
-    ],
+    title: "Ohddang's Website",
+    favicon: "./src/assets/509.ico",
     tags: [
       { tag: "link", attrs: { rel: "preconnect", href: "https://fonts.googleapis.com" } },
       { tag: "link", attrs: { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" } },
